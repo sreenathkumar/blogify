@@ -3,9 +3,11 @@ import Footer from "../components/Footer";
 import Header from "@components/Header";
 import { QueryClient, QueryClientProvider } from "react-query";
 
+const queryClient = new QueryClient();
+
 export default function Root() {
   return (
-    <QueryClientProvider client={QueryClient}>
+    <QueryClientProvider client={queryClient}>
       <Header />
       <main>
         <Outlet />

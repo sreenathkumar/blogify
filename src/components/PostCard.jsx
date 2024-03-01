@@ -1,43 +1,40 @@
-import threeDots from "../assets/icons/3dots.svg";
-import editIcon from "../assets/icons/edit.svg";
-import deleteIcon from "../assets/icons/delete.svg";
+import threeDots from "@icons/3dots.svg";
+import deleteIcon from "@icons/delete.svg";
+import editIcon from "@icons/edit.svg";
+import truncateText from "@utils/truncateText";
 
-export default function PostCard({
-  image,
-  title,
-  description,
-  authorName,
-  authorDate,
-  likes,
-  onEdit,
-  onDelete,
-}) {
+export default function PostCard({title, content, image, author, date, likes}) {
+  
   return (
-    <div className="blog-card bg-white rounded-lg shadow-lg p-4">
+    <div className="blog-card">
       <img
-        className="blog-thumb w-full h-40 object-cover rounded-lg mb-4"
-        src={image}
+        className="blog-thumb"
+        src={`http://localhost:3000/uploads/blog/${image}` || "http://via.placeholder.com/300x200"}
         alt=""
       />
       <div className="mt-2 relative">
         <a href="./single-blog.html">
-          <h3 className="text-slate-300 text-xl lg:text-2xl font-semibold">
-            {title}
+          <h3 className="text-slate-300 text-xl lg:text-2xl">
+            <a href="./single-blog.html">{title}</a>
           </h3>
         </a>
-        <p className="mb-6 text-base text-slate-500 mt-1">{description}</p>
+        <p className="mb-6 text-base text-slate-500 mt-1">
+          {truncateText(content, 200)}
+        </p>
 
         {/* Meta Informations */}
         <div className="flex justify-between items-center">
           <div className="flex items-center capitalize space-x-2">
-            <div className="avatar-img bg-indigo-600 text-white">
-              <span className="text-sm">{authorName}</span>
+            <div className="avater-img bg-indigo-600 text-white">
+              <span className="">{author[0]}</span>
             </div>
 
             <div>
-              <h5 className="text-slate-500 text-sm">{authorName}</h5>
+              <h5 className="text-slate-500 text-sm">
+                <a href="./profile.html">{author}</a>
+              </h5>
               <div className="flex items-center text-xs text-slate-700">
-                <span>{authorDate}</span>
+                <span>{date}</span>
               </div>
             </div>
           </div>
@@ -47,7 +44,7 @@ export default function PostCard({
           </div>
         </div>
 
-        {/* Action dot */}
+        {/* action dot */}
         <div className="absolute right-0 top-0">
           <button>
             <img src={threeDots} alt="3dots of Action" />
@@ -55,17 +52,11 @@ export default function PostCard({
 
           {/* Action Menus Popup */}
           <div className="action-modal-container">
-            <button
-              onClick={onEdit}
-              className="action-menu-item hover:text-lwsGreen"
-            >
+            <button className="action-menu-item hover:text-lwsGreen">
               <img src={editIcon} alt="Edit" />
               Edit
             </button>
-            <button
-              onClick={onDelete}
-              className="action-menu-item hover:text-red-500"
-            >
+            <button className="action-menu-item hover:text-red-500">
               <img src={deleteIcon} alt="Delete" />
               Delete
             </button>
