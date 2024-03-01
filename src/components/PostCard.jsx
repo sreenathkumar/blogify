@@ -1,10 +1,15 @@
 import threeDots from "@icons/3dots.svg";
-import deleteIcon from "@icons/delete.svg";
-import editIcon from "@icons/edit.svg";
 import truncateText from "@utils/truncateText";
+import { useState } from "react";
+import ActionMenu from "./ActionMenu";
 
 export default function PostCard({title, content, image, author, date, likes}) {
-  
+  const [actionHidden, setActionHidden] = useState(true);
+
+  const toggleActionMenu = () => {
+    setActionHidden(!actionHidden);
+  }
+
   return (
     <div className="blog-card">
       <img
@@ -46,21 +51,12 @@ export default function PostCard({title, content, image, author, date, likes}) {
 
         {/* action dot */}
         <div className="absolute right-0 top-0">
-          <button>
+          <button onClick={toggleActionMenu}>
             <img src={threeDots} alt="3dots of Action" />
           </button>
 
           {/* Action Menus Popup */}
-          <div className="action-modal-container">
-            <button className="action-menu-item hover:text-lwsGreen">
-              <img src={editIcon} alt="Edit" />
-              Edit
-            </button>
-            <button className="action-menu-item hover:text-red-500">
-              <img src={deleteIcon} alt="Delete" />
-              Delete
-            </button>
-          </div>
+          {actionHidden ? null : <ActionMenu />}
         </div>
         {/* action dot ends */}
       </div>
