@@ -1,14 +1,17 @@
-import { useQuery } from "react-query";
-import PostCard from "../components/PostCard";
-import SidebarCard from "../components/SidebarCard";
-import { getAllBlogs,} from "@api/blogApi";
+import PostCard from "@components/PostCard";
+import SidebarCard from "@components/sidebar/SidebarCard";
+import { useAllBlogs } from "@hooks/useAllBlogs";
 
 export default function Home() {
-  const { data, error, isLoading, isError } = useQuery("blogs", getAllBlogs);
-  console.log(data);
+  const { data, error, isLoading, isError } = useAllBlogs();
 
-  if (isLoading) {return <div>Loading...</div>;}
-  if (isError) {throw new Error(error) ;}
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (isError) {
+    throw new Error(error);
+  }
+
   return (
     <section>
       <div className="container">
@@ -16,18 +19,18 @@ export default function Home() {
           {/* <!-- Blog Contents --> */}
           <div className="space-y-3 md:col-span-5">
             {/* <!-- Blog Card Start --> */}
-            {
-              data?.blogs?.map((blog) => (
-                <PostCard key={blog.id} 
-                title={blog.title} 
-                content={blog.content} 
-                image={blog.thumbnail} 
+            {data?.blogs?.map((blog) => (
+              <PostCard
+                key={blog.id}
+                id={blog.id}
+                title={blog.title}
+                content={blog.content}
+                image={blog.thumbnail}
                 date={blog.createdAt}
                 author={blog.author.firstName + " " + blog.author.lastName}
                 likes={blog.likes.length}
-                />
-              ))
-            }
+              />
+            ))}
             {/* <!-- Blog Card End --> */}
           </div>
 

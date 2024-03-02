@@ -1,17 +1,46 @@
+import { api } from "@api/api";
 import Field from "@components/Field";
+import { useAuth } from "@hooks/useAuth";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm();
 
+  const navigate = useNavigate();
+  const { setAuth } = useAuth();
+
   // Handle form submission
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    //send data to the server and authenticate the user
+    try {
+      const response = await api.post("/auth/login", data);
+      console.log(response);
+      if (response.status === 200) {
+        const { token, user } = response.data;
+
+        if (token) {
+          const accessToken = token.accessToken;
+          const refreshToken = token.refreshToken;
+
+          //set the token in the context
+          setAuth({ accessToken, refreshToken, user });
+        }
+
+        //redirect to home
+        navigate("/");
+      }
+    } catch (error) {
+      setError("root.random", {
+        type: "random",
+        message: error.response.data.error,
+      });
+    }
   };
 
   return (
@@ -40,6 +69,7 @@ const LoginForm = () => {
           className={`form-input ${errors.password && "border-red-500"}`}
         />
       </Field>
+      <p className="text-red-500">{errors?.root?.random?.message}</p>
       <Field>
         <button
           type="submit"
