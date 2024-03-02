@@ -2,6 +2,7 @@ import threeDots from "@icons/3dots.svg";
 import truncateText from "@utils/truncateText";
 import { useState } from "react";
 import ActionMenu from "./ActionMenu";
+import AvatarImage from "./AvatarImage";
 
 export default function PostCard({title, content, image, author, date, likes}) {
   const [actionHidden, setActionHidden] = useState(true);
@@ -30,10 +31,7 @@ export default function PostCard({title, content, image, author, date, likes}) {
         {/* Meta Informations */}
         <div className="flex justify-between items-center">
           <div className="flex items-center capitalize space-x-2">
-            <div className="avater-img bg-indigo-600 text-white">
-              <span className="">{author[0]}</span>
-            </div>
-
+            <AvatarImage name={author}/>
             <div>
               <h5 className="text-slate-500 text-sm">
                 <a href="./profile.html">{author}</a>
