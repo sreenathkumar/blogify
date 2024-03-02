@@ -9,6 +9,7 @@ import Login from "@pages/Login";
 import SingleBlog from "@pages/SingleBlog";
 import Profile from "@pages/Profile";
 import ErrorPage from "@pages/ErrorPage";
+import PrivateRoutes from "./PrivateRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -40,8 +41,13 @@ export const router = createBrowserRouter([
             element: <CreateBlog />,
           },
           {
-            path: "profile",
-            element: <Profile />,
+            element: <PrivateRoutes />,
+            children: [
+              {
+                path: "profile",
+                element: <Profile />,
+              },
+            ],
           },
           // {
           //   path: "profile/:userId",
