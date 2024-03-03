@@ -1,7 +1,7 @@
+import { useRef } from "react";
 import { useProfile } from "@hooks/useProfile";
 import { getImage } from "@utils/getImage";
 import editIcon from "@assets/icons/edit.svg";
-import { useRef } from "react";
 import { useAxios } from "@hooks/useAxios";
 import { actions } from "@actions/actions";
 import { useAuth } from "@hooks/useAuth";

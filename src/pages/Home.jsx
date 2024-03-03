@@ -1,9 +1,11 @@
 import PostCard from "@components/PostCard";
 import SidebarCard from "@components/sidebar/SidebarCard";
-import { useAllBlogs } from "@hooks/useAllBlogs";
+import { useAuth } from "@hooks/useAuth";
+import { useBlogs } from "@hooks/useBlogs";
 
 export default function Home() {
-  const { data, error, isLoading, isError } = useAllBlogs();
+  const { auth } = useAuth();
+  const { data, error, isLoading, isError } = useBlogs("All");
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -36,8 +38,13 @@ export default function Home() {
 
           {/* <!-- Sidebar --> */}
           <div className="md:col-span-2 h-full w-full space-y-5">
-            <SidebarCard cardTitle={"Most Popular 👍️"}></SidebarCard>
-            <SidebarCard cardTitle={"Your Favourites ❤️"}></SidebarCard>
+            <SidebarCard cardTitle={"Most Popular 👍️"} blogType="popular" />
+            {auth?.accessToken && (
+              <SidebarCard
+                cardTitle={"Your Favourites ❤️"}
+                blogType="favorite"
+              />
+            )}
           </div>
         </div>
       </div>
