@@ -1,6 +1,6 @@
 import Loader from "@components/Loader";
 import { useBlogs } from "@hooks/useBlogs";
-import SinglePopularPost from "./SinglePopularPost";
+import SingleSidebarBlog from "./SinglePopularBlog";
 
 export default function SidebarCard({ cardTitle, blogType }) {
   //call hook using blogType
@@ -24,7 +24,7 @@ export default function SidebarCard({ cardTitle, blogType }) {
         <ul className="space-y-5 my-5">
           {blogData?.blogs?.length > 0 ? (
             blogData.blogs.map((blog) => (
-              <SinglePopularPost
+              <SingleSidebarBlog
                 key={blog.id}
                 title={blog.title}
                 author={blog.author?.firstName + "" + blog.author?.lastName}
