@@ -40,7 +40,7 @@
   
     /* Blogs */
     .blog-card {
-      @apply flex gap-4 flex-col items-center md:flex-row  bg-[#030317] p-3 border border-slate-800/40 rounded-lg transition-all hover:border-blue-900/50 hover:shadow-lg shadow-slate-200/50 cursor-pointer;
+      @apply flex gap-4 flex-col md:flex-row  bg-[#030317] p-3 border border-slate-800/40 rounded-lg transition-all hover:border-blue-900/50 hover:shadow-lg shadow-slate-200/50 cursor-pointer;
     }
   
     .blog-card > div {
@@ -121,4 +121,43 @@
       @apply w-full p-3 bg-[#030317] border border-white/20 rounded-md focus:outline-none focus:border-indigo-500;
     }
   }
+
+  /* PULSE BUBBLES */
+
+  @keyframes pulse {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: .25;
+      transform: scale(.75);
+    }
+  }
+
+.pulse-container {
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem
+}
+
+.pulse-bubble {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #3ff9dc;
+}
+
+.pulse-bubble-1 {
+    animation: pulse .4s ease 0s infinite alternate;
+}
+.pulse-bubble-2 {
+    animation: pulse .4s ease .2s infinite alternate;
+}
+.pulse-bubble-3 {
+    animation: pulse .4s ease .4s infinite alternate;
+}
+
   

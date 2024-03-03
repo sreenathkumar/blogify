@@ -44,7 +44,7 @@ export const router = createBrowserRouter([
             element: <PrivateRoutes />,
             children: [
               {
-                path: "profile",
+                path: "user/:userId/profile",
                 element: <Profile />,
               },
             ],

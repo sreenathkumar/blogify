@@ -2,6 +2,8 @@ import logo from "@assets/logo.svg";
 import searchIcon from "@assets/icons/search.svg";
 import { Link } from "react-router-dom";
 import { useAuth } from "@hooks/useAuth";
+import AvatarImage from "@components/AvatarImage";
+import { getImage } from "@utils/getImage";
 
 export default function Header() {
   const { auth } = useAuth();
@@ -42,14 +44,18 @@ export default function Header() {
             {/* Logged-in user's avatar and name */}
             {auth.user ? (
               <li className="flex items-center">
-                {/* Circular Div with background color */}
-                <div className="avater-img bg-orange-600 text-white">
-                  <span className="">S</span>
-                </div>
-
-                {/* Logged-in user's name */}
-                <Link to="/profile">
-                  <span className="text-white ml-2">Saad Hasan</span>
+                <Link
+                  className="flex items-center"
+                  to={`user/${auth.user.id}/profile`}
+                >
+                  <AvatarImage
+                    name={auth.user?.firstName}
+                    imgUrl={getImage(auth.user?.avatar, "avatar")}
+                  />
+                  {/* Logged-in user's name */}
+                  <span className="text-white ml-2">
+                    {auth.user?.firstName + " " + auth.user?.lastName}
+                  </span>
                 </Link>
               </li>
             ) : (

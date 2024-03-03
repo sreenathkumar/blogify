@@ -20,7 +20,6 @@ const LoginForm = () => {
     //send data to the server and authenticate the user
     try {
       const response = await api.post("/auth/login", data);
-      console.log(response);
       if (response.status === 200) {
         const { token, user } = response.data;
 

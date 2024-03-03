@@ -1,40 +1,52 @@
-import threeDots from "@icons/3dots.svg";
-import truncateText from "@utils/truncateText";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { getImage } from "@utils/getImage";
+import truncateText from "@utils/truncateText";
+
+// Components & Icons
+import threeDots from "@icons/3dots.svg"; //three dots icon
 import ActionMenu from "./ActionMenu";
 import AvatarImage from "./AvatarImage";
-
-export default function PostCard({title, content, image, author, date, likes}) {
+export default function PostCard({
+  id,
+  title,
+  content,
+  image,
+  author,
+  date,
+  likes,
+}) {
   const [actionHidden, setActionHidden] = useState(true);
 
   const toggleActionMenu = () => {
     setActionHidden(!actionHidden);
-  }
+  };
 
   return (
     <div className="blog-card">
-      <img
-        className="blog-thumb"
-        src={`http://localhost:3000/uploads/blog/${image}` || "http://via.placeholder.com/300x200"}
-        alt=""
-      />
+      <Link to={`/blog/${id}`}>
+        <img
+          className="blog-thumb"
+          src={getImage(image, "blog")}
+          alt={`${title}_thumbnail`}
+        />
+      </Link>
       <div className="mt-2 relative">
-        <a href="./single-blog.html">
-          <h3 className="text-slate-300 text-xl lg:text-2xl">
-            <a href="./single-blog.html">{title}</a>
-          </h3>
-        </a>
+        <h3 className="text-slate-300 text-xl lg:text-2xl">
+          <Link to={`/blog/${id}`}>{title}</Link>
+        </h3>
+
         <p className="mb-6 text-base text-slate-500 mt-1">
-          {truncateText(content, 200)}
+          {truncateText(content, 160)}
         </p>
 
         {/* Meta Informations */}
         <div className="flex justify-between items-center">
           <div className="flex items-center capitalize space-x-2">
-            <AvatarImage name={author}/>
+            <AvatarImage name={author} />
             <div>
               <h5 className="text-slate-500 text-sm">
-                <a href="./profile.html">{author}</a>
+                <Link to={"/profile"}>{author}</Link>
               </h5>
               <div className="flex items-center text-xs text-slate-700">
                 <span>{date}</span>
