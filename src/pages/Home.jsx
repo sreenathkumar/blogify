@@ -30,6 +30,7 @@ export default function Home() {
                 image={blog.thumbnail}
                 date={blog.createdAt}
                 author={blog.author.firstName + " " + blog.author.lastName}
+                authorId={blog.author.id}
                 likes={blog.likes.length}
               />
             ))}
