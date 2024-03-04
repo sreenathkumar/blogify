@@ -7,15 +7,18 @@ import truncateText from "@utils/truncateText";
 import threeDots from "@icons/3dots.svg"; //three dots icon
 import ActionMenu from "./ActionMenu";
 import AvatarImage from "./AvatarImage";
+import { useAuth } from "@hooks/useAuth";
 export default function PostCard({
   id,
   title,
   content,
   image,
   author,
+  authorId,
   date,
   likes,
 }) {
+  const { auth } = useAuth();
   const [actionHidden, setActionHidden] = useState(true);
 
   const toggleActionMenu = () => {
@@ -58,16 +61,18 @@ export default function PostCard({
             <span>{likes} Likes</span>
           </div>
         </div>
+        {auth?.user?.id === authorId && (
+          <div className="absolute right-0 top-0">
+            <button onClick={toggleActionMenu}>
+              <img src={threeDots} alt="3dots of Action" />
+            </button>
 
+            {/* Action Menus Popup */}
+            {actionHidden ? null : <ActionMenu />}
+          </div>
+        )}
         {/* action dot */}
-        <div className="absolute right-0 top-0">
-          <button onClick={toggleActionMenu}>
-            <img src={threeDots} alt="3dots of Action" />
-          </button>
 
-          {/* Action Menus Popup */}
-          {actionHidden ? null : <ActionMenu />}
-        </div>
         {/* action dot ends */}
       </div>
     </div>
