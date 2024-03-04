@@ -35,7 +35,6 @@ export const profileReducer = (state, action) => {
         user: action.payload,
       };
     case actions.profile.USER_IMAGE_UPDATED:
-      console.log(action.payload);
       return {
         ...state,
         loading: false,

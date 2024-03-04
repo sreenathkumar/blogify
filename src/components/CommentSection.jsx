@@ -8,17 +8,20 @@ import SingleComment from "./SingleComment";
 
 const CommentSection = ({ comments, blogId }) => {
   const { auth } = useAuth();
+  const { state } = useProfile();
+
+  //modifided api
   const api = useAxios();
-  //const { state } = useProfile();
+
+  //all states
   const [allComments, setAllComments] = useState(comments); //state to hold all comments
   const [comment, setComment] = useState(""); //state to hold the comment
   const [error, setError] = useState(null); //state to hold the error message
 
-  console.log(useProfile());
-  //console.log(state.user || "No user");
-
-  const avatar = auth?.user?.avatar || null;
-  const authorName = `${auth?.user?.firstName} ${auth?.user?.lastName}`;
+  const avatar = state?.user?.avatar || auth?.user?.avatar;
+  const authorName =
+    `${state?.user?.firstName} ${state?.user?.lastName}` ||
+    `${auth?.user?.firstName} ${auth?.user?.lastName}`;
 
   //handle comment submission
   const handleComment = async (e) => {

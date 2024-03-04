@@ -1,19 +1,22 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { getImage } from "@utils/getImage";
+import { useAuth } from "@hooks/useAuth";
+import { formatDate } from "@utils/general";
 import truncateText from "@utils/truncateText";
 
 // Components & Icons
 import threeDots from "@icons/3dots.svg"; //three dots icon
 import ActionMenu from "./ActionMenu";
 import AvatarImage from "./AvatarImage";
-import { useAuth } from "@hooks/useAuth";
+
 export default function PostCard({
   id,
   title,
   content,
   image,
   author,
+  avatar,
   authorId,
   date,
   likes,
@@ -46,13 +49,13 @@ export default function PostCard({
         {/* Meta Informations */}
         <div className="flex justify-between items-center">
           <div className="flex items-center capitalize space-x-2">
-            <AvatarImage name={author} />
+            <AvatarImage name={author} avatar={avatar} />
             <div>
               <h5 className="text-slate-500 text-sm">
-                <Link to={"/profile"}>{author}</Link>
+                <Link to={`/user/${author?.id}/profile`}>{author}</Link>
               </h5>
               <div className="flex items-center text-xs text-slate-700">
-                <span>{date}</span>
+                <span>{formatDate(date)}</span>
               </div>
             </div>
           </div>
