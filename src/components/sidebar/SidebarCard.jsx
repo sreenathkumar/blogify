@@ -11,7 +11,7 @@ export default function SidebarCard({ cardTitle, blogType }) {
   }
 
   if (isError) {
-    throw new Error(error);
+    return <p>Something went wrong.</p>;
   }
 
   return (
