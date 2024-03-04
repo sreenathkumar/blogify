@@ -1,14 +1,40 @@
+import { useAuth } from "@hooks/useAuth";
 import AvatarImage from "./AvatarImage";
+import deleteIcon from "@assets/icons/delete.svg";
 
-export default function SingleComment({authorName='Author Name', comment="Comment Content"}) {
+export default function SingleComment({
+  author,
+  content,
+  onDelete,
+  commentId,
+}) {
+  const { auth } = useAuth();
+  const { firstName, lastName, avatar, id } = author || {};
+  const authorName = `${firstName} ${lastName}`;
+
   return (
     <div className="flex items-start space-x-4 my-8">
-      <AvatarImage name={authorName[0]}/>
-      <div className="w-full">
-        <h5 className="text-slate-500 font-bold">{authorName}</h5>
-        <p className="text-slate-300">
-          {comment}
-        </p>
+      <AvatarImage name={authorName} avatar={avatar} />
+      <div className="w-full ">
+        <h5 className="text-slate-500 font-bold">
+          {authorName || "Author Name"}
+        </h5>
+        <p className="text-slate-300">{content || "Comment Content"}</p>
+        {
+          //delete button
+          auth?.user?.id === id && (
+            <button
+              onClick={() => onDelete(commentId)}
+              className="flex items-center gap-2 text-sm text-red-500"
+            >
+              <img
+                src={deleteIcon}
+                className="mt-4 hover:text-red-500 transition-colors"
+                alt="Delete"
+              />
+            </button>
+          )
+        }
       </div>
     </div>
   );
