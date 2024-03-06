@@ -15,7 +15,7 @@ export default function PostCard({
   title,
   content,
   image,
-  author,
+  authorName,
   avatar,
   authorId,
   date,
@@ -27,7 +27,7 @@ export default function PostCard({
   const toggleActionMenu = () => {
     setActionHidden(!actionHidden);
   };
-
+  console.log(authorId);
   return (
     <div className="blog-card">
       <Link to={`/blog/${id}`}>
@@ -49,10 +49,10 @@ export default function PostCard({
         {/* Meta Informations */}
         <div className="flex justify-between items-center">
           <div className="flex items-center capitalize space-x-2">
-            <AvatarImage name={author} avatar={avatar} />
+            <AvatarImage name={authorName} avatar={avatar} />
             <div>
               <h5 className="text-slate-500 text-sm">
-                <Link to={`/user/${author?.id}/profile`}>{author}</Link>
+                <Link to={`/user/${authorId}/profile`}>{authorName}</Link>
               </h5>
               <div className="flex items-center text-xs text-slate-700">
                 <span>{formatDate(date)}</span>

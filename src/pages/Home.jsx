@@ -29,7 +29,9 @@ export default function Home() {
                 content={blog.content}
                 image={blog.thumbnail}
                 date={blog.createdAt}
-                author={blog.author?.firstName + " " + blog.author?.lastName}
+                authorName={
+                  blog.author?.firstName + " " + blog.author?.lastName
+                }
                 avatar={blog.author?.avatar}
                 authorId={blog.author?.id}
                 likes={blog.likes?.length}
