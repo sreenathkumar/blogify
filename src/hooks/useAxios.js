@@ -2,9 +2,10 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useAuth } from "./useAuth";
 import { api } from "@api/api";
+import { actions } from "@actions/actions";
 
 export const useAxios = () => {
-  const { auth, setAuth } = useAuth();
+  const { auth, dispatchAuth } = useAuth();
 
   useEffect(() => {
     //request interceptor
@@ -43,12 +44,18 @@ export const useAxios = () => {
             originalRequest.headers.Authorization = `Bearer ${accessToken}`;
 
             if (response.status === 200) {
-              setAuth({ ...auth, accessToken, refreshToken });
+              dispatchAuth({
+                type: actions.auth.AUTH_TOKEN_UPDATE,
+                payload: { accessToken, refreshToken },
+              });
               return axios(originalRequest);
             }
           } catch (error) {
             throw new error();
           }
+        }
+        if (error.response.status === 403) {
+          dispatchAuth({ type: actions.auth.LOGOUT });
         }
         return Promise.reject(error);
       }

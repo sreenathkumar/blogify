@@ -44,6 +44,7 @@ export const authReducer = (state, action) => {
           ),
         },
       };
+
     case actions.auth.USER_UPDATED:
       return {
         ...state,
@@ -51,6 +52,14 @@ export const authReducer = (state, action) => {
           ...state.user,
           ...action.payload,
         },
+      };
+
+    case actions.auth.AUTH_TOKEN_UPDATE:
+      return {
+        ...state,
+        status: "loggedIn",
+        accessToken: action.payload.accessToken,
+        refreshToken: action.payload.refreshToken,
       };
     default:
       return state;

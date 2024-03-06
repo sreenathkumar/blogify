@@ -7,7 +7,7 @@ import AvatarImage from "./AvatarImage";
 import SingleComment from "./SingleComment";
 import FloatingActions from "./FloatingActions";
 
-const CommentSection = ({ comments, blogId, blogTitle, isFavourite }) => {
+const CommentSection = ({ comments, blogId, blogTitle, likes }) => {
   const { auth } = useAuth();
   const { state } = useProfile();
 
@@ -117,10 +117,11 @@ const CommentSection = ({ comments, blogId, blogTitle, isFavourite }) => {
         </div>
       </section>
       <FloatingActions
-        numberOfComment={allComments.length}
+        numberOfComments={allComments?.length}
+        numberOfLikes={likes?.length}
         blogId={blogId}
         blogTitle={blogTitle}
-        isFavourite={isFavourite}
+        likes={likes}
       />
     </>
   );

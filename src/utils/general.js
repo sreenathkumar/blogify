@@ -27,10 +27,18 @@ export const notify = (message, type) => {
   });
 };
 
-//find is favourite
+//find isFavourite
 export const findFavourite = (favourites, id) => {
   if (favourites && favourites.length > 0) {
     return favourites.some((fav) => fav.id === id);
+  }
+  return false;
+};
+
+//find isLiked
+export const findLiked = (likes, id) => {
+  if (likes && likes.length > 0) {
+    return likes.some((fav) => fav.id === id);
   }
   return false;
 };

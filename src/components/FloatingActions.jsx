@@ -1,32 +1,62 @@
-//Icons
 import { actions } from "@actions/actions";
-import commentIcon from "@assets/icons/comment.svg";
-import filledHeartIcon from "@assets/icons/heart-filled.svg";
-import heartIcon from "@assets/icons/heart.svg";
-import likeIcon from "@assets/icons/like.svg";
 import { useAuth } from "@hooks/useAuth";
 import { useAxios } from "@hooks/useAxios";
-import { notify } from "@utils/general";
-import { findFavourite } from "@utils/general";
+import { notify, findFavourite, findLiked } from "@utils/general";
 
-const FloatingActions = ({ numberOfComment, blogId, blogTitle }) => {
+//Icons
+import commentIcon from "@assets/icons/comment.svg";
+import filledHeartIcon from "@assets/icons/heart-filled.svg";
+import filledLikeIcon from "@assets/icons/like-filled.svg";
+import heartIcon from "@assets/icons/heart.svg";
+import likeIcon from "@assets/icons/like.svg";
+import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+
+const FloatingActions = ({
+  numberOfComments,
+  numberOfLikes,
+  blogId,
+  blogTitle,
+  likes,
+}) => {
   const api = useAxios(); // modified api
   const { auth, dispatchAuth } = useAuth();
+  const [isLiked, setIsLiked] = useState(findLiked(likes, auth?.user?.id));
+  const queryClient = useQueryClient();
 
-  const isFavourite = findFavourite(auth?.user?.favourites, blogId); //check if the blog is a favourite
+  //check if the blog is a favourite
+  const isFavourite = findFavourite(auth?.user?.favourites, blogId);
 
+  //======================================
   //handle  like button
-  const handleLike = () => {
+  //======================================
+  const handleLike = async () => {
     if (auth?.accessToken) {
       //handle like
+      //optimistic update
+      setIsLiked(!isLiked);
+      //send request to server
+      try {
+        const response = await api.post(`/blogs/${blogId}/like`);
+        if (response.status !== 200) {
+          setIsLiked(!isLiked);
+        }
+        queryClient.invalidateQueries(["All", blogId]);
+      } catch (error) {
+        //if request fails, revert the optimistic update
+        setIsLiked(!isLiked);
+        notify("Something went wrong when toggling like", "error");
+      }
     } else {
       notify("You need to login to like this post", "warning");
     }
   };
+
+  //======================================
   //handle  favourite button
+  //======================================
   const handleFavourite = async () => {
     if (auth?.accessToken) {
-      console.log("handleFavourite");
       //optimistic update
       if (isFavourite) {
         dispatchAuth({ type: actions.auth.REMOVE_FAVOURITE, payload: blogId });
@@ -78,12 +108,17 @@ const FloatingActions = ({ numberOfComment, blogId, blogTitle }) => {
     }
   };
 
+  //JSX
   return (
     <div className="floating-action">
       <ul className="floating-action-menus">
         <li>
-          <img src={likeIcon} alt="like" />
-          <span>10</span>
+          <img
+            src={isLiked ? filledLikeIcon : likeIcon}
+            onClick={handleLike}
+            alt="like"
+          />
+          <span>{numberOfLikes}</span>
         </li>
 
         <li>
@@ -96,7 +131,7 @@ const FloatingActions = ({ numberOfComment, blogId, blogTitle }) => {
         <a href="#comments">
           <li>
             <img src={commentIcon} onClick={handleLike} alt="Comments" />
-            <span>{numberOfComment}</span>
+            <span>{numberOfComments}</span>
           </li>
         </a>
       </ul>
