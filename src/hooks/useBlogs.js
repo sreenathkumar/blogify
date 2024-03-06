@@ -33,7 +33,7 @@ export const useBlogs = (type) => {
     queryKey: [type],
     queryFn: ({ queryKey }) => {
       switch (queryKey[0]) {
-        case "favorite":
+        case "favourite":
           return fetchFavoriteBlogs();
         case "popular":
           return fetchPopularBlogs();
