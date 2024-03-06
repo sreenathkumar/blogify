@@ -7,8 +7,8 @@ import { actions } from "@actions/actions";
 import { useAuth } from "@hooks/useAuth";
 
 const ProfileImage = () => {
-  const { setAuth } = useAuth();
-  const { state, dispatch } = useProfile();
+  const { dispatchAuth } = useAuth();
+  const { state, dispatch: dispatchProfile } = useProfile();
   const fileRef = useRef(null);
   const api = useAxios();
   const { avatar, firstName, lastName } = state.user || {};
@@ -30,24 +30,18 @@ const ProfileImage = () => {
         const response = await api.post("/profile/avatar", formData);
 
         if (response.status === 200) {
-          dispatch({
+          dispatchProfile({
             type: actions.profile.USER_IMAGE_UPDATED,
             payload: response?.data?.user?.avatar,
           });
 
-          //set the avatar in the auth context
-          setAuth((prev) => {
-            return {
-              ...prev,
-              user: {
-                ...prev.user,
-                avatar: response?.data?.user?.avatar,
-              },
-            };
+          dispatchAuth({
+            type: actions.auth.USER_UPDATED,
+            payload: response?.data?.user,
           });
         }
       } catch (error) {
-        dispatch({
+        dispatchProfile({
           type: actions.profile.DATA_LOAD_ERROR,
           payload: error.message,
         });
