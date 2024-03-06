@@ -130,7 +130,7 @@ const FloatingActions = ({
         </li>
         <a href="#comments">
           <li>
-            <img src={commentIcon} onClick={handleLike} alt="Comments" />
+            <img src={commentIcon} alt="Comments" />
             <span>{numberOfComments}</span>
           </li>
         </a>
