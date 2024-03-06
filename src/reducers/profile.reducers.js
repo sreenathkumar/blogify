@@ -18,7 +18,10 @@ export const profileReducer = (state, action) => {
     case actions.profile.DATA_LOADED:
       return {
         ...state,
-        user: action.payload,
+        user: {
+          ...state.user,
+          ...action.payload,
+        },
         blogs: action.payload.blogs,
         loading: false,
       };
@@ -32,7 +35,10 @@ export const profileReducer = (state, action) => {
       return {
         ...state,
         loading: false,
-        user: action.payload,
+        user: {
+          ...state.user,
+          ...action.payload,
+        },
       };
     case actions.profile.USER_IMAGE_UPDATED:
       return {
@@ -41,6 +47,27 @@ export const profileReducer = (state, action) => {
         user: {
           ...state.user,
           avatar: action.payload,
+        },
+      };
+    case actions.profile.FAVOURITE_ADDED:
+      return {
+        ...state,
+        loading: false,
+        user: {
+          ...state.user,
+          favourites: [...state.user.favourites, action.payload],
+        },
+      };
+
+    case actions.profile.FAVOURITE_REMOVED:
+      return {
+        ...state,
+        loading: false,
+        user: {
+          ...state.user,
+          favourites: state.user.favourites.filter(
+            (item) => item.id !== action.payload
+          ),
         },
       };
     default:
