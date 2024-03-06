@@ -21,7 +21,7 @@ export default function Header() {
         <div>
           <ul className="flex items-center space-x-5">
             <li>
-              {auth.user && (
+              {auth.accessToken && (
                 <Link
                   to="blog/add-new"
                   className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200"
@@ -41,19 +41,19 @@ export default function Header() {
             </li>
 
             {/* Logged-in user's avatar and name */}
-            {auth.user ? (
+            {auth?.accessToken ? (
               <li className="flex items-center">
                 <Link
                   className="flex items-center"
-                  to={`user/${auth.user.id}/profile`}
+                  to={`user/${auth?.user?.id}/profile`}
                 >
                   <AvatarImage
-                    name={auth.user?.firstName}
-                    avatar={auth.user?.avatar}
+                    name={auth?.user?.firstName}
+                    avatar={auth?.user?.avatar}
                   />
                   {/* Logged-in user's name */}
                   <span className="text-white ml-2">
-                    {auth.user?.firstName + " " + auth.user?.lastName}
+                    {auth.user?.firstName + " " + auth?.user?.lastName}
                   </span>
                 </Link>
               </li>
