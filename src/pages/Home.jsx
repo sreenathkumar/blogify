@@ -44,7 +44,7 @@ export default function Home() {
             {auth?.accessToken && (
               <SidebarCard
                 cardTitle={"Your Favourites ❤️"}
-                blogType="favorite"
+                blogType="favourite"
               />
             )}
           </div>
