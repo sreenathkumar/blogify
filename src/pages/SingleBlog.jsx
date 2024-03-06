@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 //Components
 import CommentSection from "@components/CommentSection";
 import Loader from "@components/Loader";
+import AvatarImage from "@components/AvatarImage";
 
 export default function SingleBlog() {
   const { blogId } = useParams(); //get blogId from url
@@ -42,9 +43,7 @@ export default function SingleBlog() {
           <h1 className="font-bold text-3xl md:text-5xl">{blog.title}</h1>
           <div className="flex justify-center items-center my-4 gap-4">
             <div className="flex items-center capitalize space-x-2">
-              <div className="avater-img bg-indigo-600 text-white">
-                <span className="">S</span>
-              </div>
+              <AvatarImage avatar={author?.avatar} name={fullName} />
               <h5 className="text-slate-500 text-sm">{fullName}</h5>
             </div>
             <span className="text-sm text-slate-700 dot">
