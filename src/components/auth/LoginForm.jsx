@@ -1,3 +1,4 @@
+import { actions } from "@actions/actions";
 import { api } from "@api/api";
 import Field from "@components/Field";
 import { useAuth } from "@hooks/useAuth";
@@ -13,7 +14,7 @@ const LoginForm = () => {
   } = useForm();
 
   const navigate = useNavigate();
-  const { setAuth } = useAuth();
+  const { dispatchAuth } = useAuth();
 
   // Handle form submission
   const onSubmit = async (data) => {
@@ -28,7 +29,10 @@ const LoginForm = () => {
           const refreshToken = token.refreshToken;
 
           //set the token in the context
-          setAuth({ accessToken, refreshToken, user });
+          dispatchAuth({
+            type: actions.auth.LOGIN,
+            payload: { accessToken, refreshToken, user },
+          });
         }
 
         //redirect to home
