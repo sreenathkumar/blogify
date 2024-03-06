@@ -11,7 +11,7 @@ export default function SidebarCard({ cardTitle, blogType }) {
   }
 
   if (isError) {
-    return <p>Something went wrong.</p>;
+    return <p>{error.message}</p>;
   }
 
   return (
@@ -26,10 +26,13 @@ export default function SidebarCard({ cardTitle, blogType }) {
             blogData.blogs.map((blog) => (
               <SingleSidebarBlog
                 key={blog.id}
+                blogId={blog.id}
                 title={blog.title}
                 author={blog.author?.firstName + "" + blog.author?.lastName}
                 authorId={blog.author?.id}
-                likes={blog.likes.length}
+                likes={blog.likes?.length}
+                tags={blog.tags.split(",")}
+                type={blogType}
               />
             ))
           ) : (
