@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 export default function SingleSidebarBlog({
+  blogId,
   title,
   author,
   authorId,
@@ -10,15 +11,21 @@ export default function SingleSidebarBlog({
 }) {
   return (
     <li>
-      <h3 className="text-slate-400 font-medium hover:text-slate-300 transition-all cursor-pointer">
-        {title}
-      </h3>
+      <Link
+        to={`blog/${blogId}`}
+        className="text-slate-400 hover:text-slate-300"
+      >
+        <h3 className="text-slate-400 font-medium hover:text-slate-300 transition-all cursor-pointer">
+          {title}
+        </h3>
+      </Link>
       <p className="text-slate-600 text-sm">
-        {type === "favaourite" ? (
+        {type === "favourite" ? (
           <>
             {tags?.map((tag, index) => (
-              <span key={index} className="text-slate-300 text-xs">
+              <span key={index} className="text-slate-600 text-sm">
                 {tag}
+                {index < tags.length - 1 ? ", " : ""}
               </span>
             ))}
           </>
