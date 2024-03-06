@@ -36,13 +36,14 @@ export const router = createBrowserRouter([
             path: "blog/:blogId",
             element: <SingleBlog />,
           },
-          {
-            path: "blog/add-new",
-            element: <CreateBlog />,
-          },
+
           {
             element: <PrivateRoutes />,
             children: [
+              {
+                path: "blog/add-new",
+                element: <CreateBlog />,
+              },
               {
                 path: "user/:userId/profile",
                 element: <Profile />,
