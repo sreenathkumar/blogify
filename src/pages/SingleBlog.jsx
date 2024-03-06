@@ -22,6 +22,7 @@ export default function SingleBlog() {
     comments,
     createdAt: date,
     likes,
+    isFavourite,
   } = blog || {};
 
   const fullName = author?.firstName + " " + author?.lastName;
@@ -73,7 +74,12 @@ export default function SingleBlog() {
         </div>
       </section>
 
-      <CommentSection comments={comments} blogId={blogId} />
+      <CommentSection
+        comments={comments}
+        blogId={blogId}
+        blogTitle={title}
+        isFavourite={isFavourite}
+      />
     </>
   );
 }

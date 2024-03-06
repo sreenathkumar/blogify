@@ -26,3 +26,11 @@ export const notify = (message, type) => {
     transition: Bounce,
   });
 };
+
+//find is favourite
+export const findFavourite = (favourites, id) => {
+  if (favourites && favourites.length > 0) {
+    return favourites.some((fav) => fav.id === id);
+  }
+  return false;
+};
