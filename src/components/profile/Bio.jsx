@@ -4,9 +4,8 @@ import { useAxios } from "@hooks/useAxios";
 import { useProfile } from "@hooks/useProfile";
 import { useState } from "react";
 
-const Bio = () => {
-  const { state, dispatch } = useProfile();
-  const { bio } = state.user || {};
+const Bio = ({ bio, isEditable }) => {
+  const { dispatch } = useProfile();
   const api = useAxios();
 
   const [bioText, setBioText] = useState(bio || "No bio");
@@ -29,7 +28,6 @@ const Bio = () => {
       }
       setIsEditing(false);
     } catch (error) {
-      //console.log(error);
       dispatch({
         type: actions.profile.DATA_LOAD_ERROR,
         payload: error.message,
@@ -64,13 +62,15 @@ const Bio = () => {
                 {bioText}
               </p>
             </div>
-            <button className="flex-center h-7 w-7 rounded-full">
-              <img
-                src={editIcon}
-                alt="Edit"
-                onClick={() => setIsEditing(true)}
-              />
-            </button>
+            {isEditable && (
+              <button className="flex-center h-7 w-7 rounded-full">
+                <img
+                  src={editIcon}
+                  alt="Edit"
+                  onClick={() => setIsEditing(true)}
+                />
+              </button>
+            )}
           </>
         )
       }

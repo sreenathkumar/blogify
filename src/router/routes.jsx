@@ -44,11 +44,11 @@ export const router = createBrowserRouter([
                 path: "blog/add-new",
                 element: <CreateBlog />,
               },
-              {
-                path: "user/:userId/profile",
-                element: <Profile />,
-              },
             ],
+          },
+          {
+            path: "user/:userId/profile",
+            element: <Profile />,
           },
           // {
           //   path: "profile/:userId",

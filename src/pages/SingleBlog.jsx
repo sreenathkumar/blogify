@@ -2,7 +2,7 @@
 import { useSingleBlog } from "@hooks/useSingleBlog";
 import { formatDate } from "@utils/general";
 import { getImage } from "@utils/getImage";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 //Components
 import CommentSection from "@components/CommentSection";
@@ -41,10 +41,13 @@ export default function SingleBlog() {
         <div className="container text-center py-8">
           <h1 className="font-bold text-3xl md:text-5xl">{blog.title}</h1>
           <div className="flex justify-center items-center my-4 gap-4">
-            <div className="flex items-center capitalize space-x-2">
+            <Link
+              to={`/user/${author?.id}/profile`}
+              className="flex items-center capitalize space-x-2"
+            >
               <AvatarImage avatar={author?.avatar} name={fullName} />
               <h5 className="text-slate-500 text-sm">{fullName}</h5>
-            </div>
+            </Link>
             <span className="text-sm text-slate-700 dot">
               {formatDate(date)}
             </span>

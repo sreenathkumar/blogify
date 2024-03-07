@@ -27,7 +27,7 @@ export default function PostCard({
   const toggleActionMenu = () => {
     setActionHidden(!actionHidden);
   };
-  console.log(authorId);
+  console.log(id);
   return (
     <div className="blog-card">
       <Link to={`/blog/${id}`}>
@@ -52,7 +52,7 @@ export default function PostCard({
             <AvatarImage name={authorName} avatar={avatar} />
             <div>
               <h5 className="text-slate-500 text-sm">
-                <Link to={`/user/${authorId}/profile`}>{authorName}</Link>
+                <Link to={`user/${authorId}/profile`}>{authorName}</Link>
               </h5>
               <div className="flex items-center text-xs text-slate-700">
                 <span>{formatDate(date)}</span>

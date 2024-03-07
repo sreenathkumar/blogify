@@ -41,7 +41,7 @@ const FloatingActions = ({
         if (response.status !== 200) {
           setIsLiked(!isLiked);
         }
-        queryClient.invalidateQueries(["All", blogId]);
+        queryClient.invalidateQueries(["Blogs", blogId]);
       } catch (error) {
         //if request fails, revert the optimistic update
         setIsLiked(!isLiked);

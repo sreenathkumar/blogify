@@ -6,13 +6,13 @@ import { useAxios } from "@hooks/useAxios";
 import { actions } from "@actions/actions";
 import { useAuth } from "@hooks/useAuth";
 
-const ProfileImage = () => {
+const ProfileImage = ({ avatar, fullname, isEditable }) => {
   const { dispatchAuth } = useAuth();
-  const { state, dispatch: dispatchProfile } = useProfile();
+  const { dispatch: dispatchProfile } = useProfile();
   const fileRef = useRef(null);
   const api = useAxios();
-  const { avatar, firstName, lastName } = state.user || {};
-  const fullname = `${firstName} ${lastName}`;
+
+  console.log(isEditable);
 
   //handle image upload
   const handleImageUpload = (e) => {
@@ -62,14 +62,17 @@ const ProfileImage = () => {
           <span className="">{fullname[0]}</span>
         )}
       </div>
-
-      <button
-        className="grid place-items-center absolute bottom-0 right-0 h-7 w-7 rounded-full bg-slate-700 hover:bg-slate-700/80"
-        onClick={handleImageUpload}
-      >
-        <img src={editIcon} alt="Edit" />
-      </button>
-      <input ref={fileRef} type="file" className="hidden" />
+      {isEditable && (
+        <>
+          <button
+            className="grid place-items-center absolute bottom-0 right-0 h-7 w-7 rounded-full bg-slate-700 hover:bg-slate-700/80"
+            onClick={handleImageUpload}
+          >
+            <img src={editIcon} alt="Edit" />
+          </button>
+          <input ref={fileRef} type="file" className="hidden" />
+        </>
+      )}
     </div>
   );
 };
