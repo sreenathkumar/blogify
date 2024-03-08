@@ -42,3 +42,29 @@ export const findLiked = (likes, id) => {
   }
   return false;
 };
+
+//create data url of file
+export function fileToDataURL(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      resolve(reader.result);
+    };
+
+    reader.onerror = (error) => {
+      reject(error);
+    };
+
+    reader.readAsDataURL(file);
+  });
+}
+
+//create form data from generic object
+export function objectToFormData(obj) {
+  const formData = new FormData();
+  for (let key in obj) {
+    formData.append(key, obj[key]);
+  }
+  return formData;
+}
