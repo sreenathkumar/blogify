@@ -1,10 +1,10 @@
 import React from "react";
 
-const Field = ({ label, htmlFor, children, error }) => {
+const Field = ({ label, htmlFor, children, error, className }) => {
   const id = htmlFor || getChildId(children);
 
   return (
-    <div className="mb-6">
+    <div className={`mb-6 ${className}`}>
       {label && (
         <label htmlFor={id} className="block mb-2">
           {label}
