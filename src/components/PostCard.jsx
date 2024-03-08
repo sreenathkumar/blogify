@@ -27,7 +27,7 @@ export default function PostCard({
   const toggleActionMenu = () => {
     setActionHidden(!actionHidden);
   };
-  console.log(id);
+
   return (
     <div className="blog-card">
       <Link to={`/blog/${id}`}>
