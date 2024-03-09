@@ -25,7 +25,7 @@ const useInfiniteScroll = (url, elementRef, limit = 10) => {
           setPage((prevPage) => prevPage + 1);
         }
       } catch (error) {
-        isLoading(false);
+        setIsLoading(false);
         setIsError(true);
         setError(
           "An error occurred while getting the blogs. Please refresh the page or contact: admin@example.com."
@@ -41,7 +41,7 @@ const useInfiniteScroll = (url, elementRef, limit = 10) => {
     };
 
     //observer to observe the element
-    const observer = new IntersectionObserver(onIntersection, { threshold: 1 });
+    const observer = new IntersectionObserver(onIntersection);
 
     //start observing the element
     if (observer && elementRef.current) {
