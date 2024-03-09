@@ -4,11 +4,13 @@ import { useAxios } from "@hooks/useAxios";
 import { fileToDataURL, objectToFormData } from "@utils/general";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function CreateBlog() {
   const api = useAxios();
   const { dispatchAuth } = useAuth();
+  const navigate = useNavigate();
 
   //call the useForm
   const {
@@ -54,8 +56,10 @@ export default function CreateBlog() {
     const toastId = toast.loading("Saving Blog Post...");
     try {
       const response = await api.post("/blogs", formData);
+      console.log(response);
       if (response.status === 201) {
-        //do something with the response
+        //redirect to the blog page
+        navigate(`/blog/${response.data?.blog.id}`);
         dispatchAuth({
           type: "AUTH_BLOG_CREATED",
           payload: response.data?.blog,
