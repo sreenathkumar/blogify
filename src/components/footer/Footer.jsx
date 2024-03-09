@@ -1,13 +1,14 @@
 import logo from "@assets/logo.svg";
 import SocialIcon from "./SocialIcon";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
     <footer className="py-6 md:py-8 bg-[#030317]">
       <div className="container mx-auto flex items-center justify-between">
-        <a href="/">
+        <Link to="/">
           <img className="w-28" src={logo} alt="lws" />
-        </a>
+        </Link>
         <ul className="flex items-center space-x-5">
           {/* Removed <li> elements */}
           <SocialIcon socialLink="https://www.facebook.com">
