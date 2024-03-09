@@ -17,7 +17,6 @@ export default function Profile() {
     isLoading,
   } = useFetchProfile(userId);
 
-  console.log(profileData);
   let firstName, lastName, email, blogs, avatar, bio;
   if (auth?.user?.id === userId) {
     firstName = auth.user.firstName;
