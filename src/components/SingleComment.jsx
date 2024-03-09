@@ -1,6 +1,7 @@
 import { useAuth } from "@hooks/useAuth";
 import AvatarImage from "./AvatarImage";
 import deleteIcon from "@assets/icons/delete.svg";
+import { Link } from "react-router-dom";
 
 export default function SingleComment({
   author,
@@ -17,7 +18,7 @@ export default function SingleComment({
       <AvatarImage name={authorName} avatar={avatar} />
       <div className="w-full ">
         <h5 className="text-slate-500 font-bold">
-          {authorName || "Author Name"}
+          <Link to={`/user/${id}/profile`}>{authorName || "Author Name"}</Link>
         </h5>
         <p className="text-slate-300">{content || "Comment Content"}</p>
         {
