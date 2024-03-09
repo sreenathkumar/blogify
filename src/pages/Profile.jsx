@@ -36,31 +36,6 @@ export default function Profile() {
 
   const fullname = `${firstName} ${lastName}`;
 
-  // useEffect(() => {
-  //   dispatch({ type: actions.profile.DATA_LOADING });
-
-  //   const fetchProfile = async () => {
-  //     try {
-  //       const response = await api.get(`/profile/${userId}`);
-
-  //       if (response.status === 200) {
-  //         dispatch({
-  //           type: actions.profile.DATA_LOADED,
-  //           payload: response.data,
-  //         });
-  //       }
-  //     } catch (error) {
-  //       //console.log(error);
-  //       dispatch({
-  //         type: actions.profile.DATA_LOAD_ERROR,
-  //         payload: error.message,
-  //       });
-  //     }
-  //   };
-
-  //   fetchProfile();
-  // }, []);
-
   if (isLoading) {
     return <Loader />;
   }
