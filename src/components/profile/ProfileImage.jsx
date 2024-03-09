@@ -12,8 +12,6 @@ const ProfileImage = ({ avatar, fullname, isEditable }) => {
   const fileRef = useRef(null);
   const api = useAxios();
 
-  console.log(isEditable);
-
   //handle image upload
   const handleImageUpload = (e) => {
     e.preventDefault();

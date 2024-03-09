@@ -1,4 +1,5 @@
 import Field from "@components/Field";
+import { useAuth } from "@hooks/useAuth";
 import { useAxios } from "@hooks/useAxios";
 import { fileToDataURL, objectToFormData } from "@utils/general";
 import { useRef, useState } from "react";
@@ -7,6 +8,7 @@ import { toast } from "react-toastify";
 
 export default function CreateBlog() {
   const api = useAxios();
+  const { dispatchAuth } = useAuth();
 
   //call the useForm
   const {
@@ -49,13 +51,15 @@ export default function CreateBlog() {
     };
     const formData = objectToFormData(newFormData);
 
-    console.log(Object.fromEntries(formData));
-    const toastId = toast.loading("Creating Blog Post...");
+    const toastId = toast.loading("Saving Blog Post...");
     try {
       const response = await api.post("/blogs", formData);
       if (response.status === 201) {
         //do something with the response
-        console.log(response.data?.blog?.thumbnail);
+        dispatchAuth({
+          type: "AUTH_BLOG_CREATED",
+          payload: response.data?.blog,
+        });
         //updatate the loading toast with success
         toast.update(toastId, {
           render: "Blog Post Created",
