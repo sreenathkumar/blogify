@@ -124,7 +124,7 @@
 
   /* PULSE BUBBLES */
 
-  @keyframes pulse {
+  @keyframes pulse2 {
     from {
       opacity: 1;
       transform: scale(1);
@@ -136,7 +136,6 @@
   }
 
 .pulse-container {
-  min-height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -151,13 +150,13 @@
 }
 
 .pulse-bubble-1 {
-    animation: pulse .4s ease 0s infinite alternate;
+    animation: pulse2 .4s ease 0s infinite alternate;
 }
 .pulse-bubble-2 {
-    animation: pulse .4s ease .2s infinite alternate;
+    animation: pulse2 .4s ease .2s infinite alternate;
 }
 .pulse-bubble-3 {
-    animation: pulse .4s ease .4s infinite alternate;
+    animation: pulse2 .4s ease .4s infinite alternate;
 }
 
   
