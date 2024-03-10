@@ -28,6 +28,16 @@ const LoginForm = () => {
           const accessToken = token.accessToken;
           const refreshToken = token.refreshToken;
 
+          localStorage.setItem(
+            "token",
+            JSON.stringify({
+              accessToken,
+              refreshToken,
+              createdAt: new Date().getTime(),
+            })
+          );
+          localStorage.setItem("userId", user.id);
+
           //set the token in the context
           dispatchAuth({
             type: actions.auth.LOGIN,

@@ -3,6 +3,7 @@ import { actions } from "@actions/actions";
 export const initialState = {
   status: "loggedOut",
   user: {},
+  blogs: [],
   accessToken: null,
   refreshToken: null,
   error: null,
@@ -11,6 +12,12 @@ export const initialState = {
 
 export const authReducer = (state, action) => {
   switch (action.type) {
+    case actions.auth.STATUS_UPDATE:
+      return {
+        ...state,
+        status: "login",
+        ...action.payload,
+      };
     case actions.auth.LOGIN:
       return {
         ...state,
@@ -18,6 +25,7 @@ export const authReducer = (state, action) => {
         user: action.payload.user,
         accessToken: action.payload.accessToken,
         refreshToken: action.payload.refreshToken,
+        blogs: [],
         error: null,
         loading: false,
       };
@@ -25,7 +33,6 @@ export const authReducer = (state, action) => {
       return {
         ...initialState,
       };
-
     case actions.auth.ADD_FAVOURITE:
       return {
         ...state,
@@ -44,7 +51,6 @@ export const authReducer = (state, action) => {
           ),
         },
       };
-
     case actions.auth.USER_UPDATED:
       return {
         ...state,
@@ -53,7 +59,6 @@ export const authReducer = (state, action) => {
           ...action.payload,
         },
       };
-
     case actions.auth.AUTH_TOKEN_UPDATE:
       return {
         ...state,
@@ -62,12 +67,33 @@ export const authReducer = (state, action) => {
         refreshToken: action.payload.refreshToken,
       };
     case actions.auth.AUTH_BLOG_CREATED:
+      if (state.blogs.length === 0) {
+        return {
+          ...state,
+          blogs: [action.payload],
+        };
+      }
       return {
         ...state,
         user: {
           ...state.user,
           blogs: [...state.user.blogs, action.payload],
         },
+      };
+    case actions.auth.AUTH_BLOG_ADDED:
+      return {
+        ...state,
+        blogs: [...state.blogs, ...action.payload],
+      };
+    case actions.auth.AUTH_BLOG_DELETED:
+      return {
+        ...state,
+        blogs: state.blogs.filter((blog) => blog.id !== action.payload),
+      };
+    case actions.auth.RESET_AUTH_BLOGS:
+      return {
+        ...state,
+        blogs: [],
       };
     default:
       return state;
