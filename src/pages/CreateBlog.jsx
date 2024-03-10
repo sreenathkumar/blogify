@@ -22,6 +22,7 @@ export default function CreateBlog() {
 
   const [blogImage, setBlogImage] = useState(null); // state to hold the blog image for api call
   const [currentImage, setCurrentImage] = useState(null); //state to hold the current image for preview
+  const [imageError, setImageError] = useState(null); //state to hold the image error
 
   //Create a reference for file input
   const blogImageRef = useRef(null);
@@ -34,19 +35,27 @@ export default function CreateBlog() {
   };
 
   const handleImageChange = async (e) => {
+    setImageError(null);
     setBlogImage(e.target.files[0]);
     if (e.target.files && e.target.files.length > 0) {
       try {
         const dataUrl = await fileToDataURL(e.target.files[0]);
         setCurrentImage(dataUrl);
       } catch (error) {
-        console.error("Error converting file to data URL:", error);
+        setImageError(error.message);
       }
+    } else {
+      setImageError("Image is required");
     }
   };
 
   //Handle form submission
   const onSubmit = async (data) => {
+    if (!blogImage) {
+      setImageError("Image is required");
+      return;
+    }
+
     const newFormData = {
       ...data,
       thumbnail: blogImage,
@@ -56,7 +65,7 @@ export default function CreateBlog() {
     const toastId = toast.loading("Saving Blog Post...");
     try {
       const response = await api.post("/blogs", formData);
-      console.log(response);
+
       if (response.status === 201) {
         //redirect to the blog page
         navigate(`/blog/${response.data?.blog.id}`);
@@ -72,11 +81,12 @@ export default function CreateBlog() {
           autoClose: 2000,
         });
         setCurrentImage(null);
+        setImageError(null);
         reset();
       }
     } catch (error) {
       //handle error
-
+      setImageError("Error creating blog post");
       //update the loading toast with error
       toast.update(toastId, {
         render: "Error creating blog post",
@@ -86,7 +96,7 @@ export default function CreateBlog() {
       });
     }
   };
-  //console.log(blogImage);
+
   return (
     <section>
       <div className="container">
@@ -122,13 +132,14 @@ export default function CreateBlog() {
               </>
             )}
           </div>
-          <input
-            ref={blogImageRef}
-            type="file"
-            name="thumbnail"
-            className="hidden"
-          />
-
+          <Field error={{ message: imageError }}>
+            <input
+              ref={blogImageRef}
+              type="file"
+              name="thumbnail"
+              className="hidden"
+            />
+          </Field>
           <Field error={errors.title}>
             <input
               type="text"

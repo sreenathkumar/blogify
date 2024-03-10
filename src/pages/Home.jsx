@@ -9,12 +9,13 @@ export default function Home() {
   const { auth } = useAuth();
   //const { data, error, isLoading, isError } = useBlogs("All");
   const loaderRef = useRef(null);
-  const { data, isError, error, hasMore } = useInfiniteScroll(
-    "/blogs",
-    loaderRef,
-    3
-  );
-
+  const {
+    data: blogs,
+    isError,
+    error,
+    hasMore,
+    deleteItem,
+  } = useInfiniteScroll("/blogs", loaderRef, 3);
   return (
     <section>
       <div className="container">
@@ -24,11 +25,11 @@ export default function Home() {
             {/* <!-- Blog Card Start --> */}
 
             {!isError ? (
-              data?.length > 0 && (
+              blogs?.length > 0 && (
                 <>
                   {
                     //card lists
-                    data?.map((blog) => (
+                    blogs?.map((blog) => (
                       <PostCard
                         key={blog.id}
                         id={blog.id}
@@ -42,6 +43,7 @@ export default function Home() {
                         avatar={blog.author?.avatar}
                         authorId={blog.author?.id}
                         likes={blog.likes?.length}
+                        onDelete={deleteItem}
                       />
                     ))
                   }

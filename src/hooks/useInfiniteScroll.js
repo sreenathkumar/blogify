@@ -9,6 +9,11 @@ const useInfiniteScroll = (url, elementRef, limit = 10) => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
+  const deleteItem = (id) => {
+    const newBlogs = data.filter((blog) => blog.id !== id);
+    setData(newBlogs);
+  };
+
   useEffect(() => {
     //fetch blogs from the api
     const fetchBlogs = async () => {
@@ -25,7 +30,7 @@ const useInfiniteScroll = (url, elementRef, limit = 10) => {
           setPage((prevPage) => prevPage + 1);
         }
       } catch (error) {
-        setIsLoading(false);
+        isLoading(false);
         setIsError(true);
         setError(
           "An error occurred while getting the blogs. Please refresh the page or contact: admin@example.com."
@@ -52,7 +57,7 @@ const useInfiniteScroll = (url, elementRef, limit = 10) => {
     return () => observer.disconnect();
   }, [elementRef.current, page, hasMore, isLoading, limit, url]);
 
-  return { data, isLoading, error, isError, hasMore };
+  return { data, isLoading, error, isError, hasMore, deleteItem };
 };
 
 export default useInfiniteScroll;

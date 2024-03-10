@@ -17,22 +17,7 @@ export default function Profile() {
     isLoading,
   } = useFetchProfile(userId);
 
-  let firstName, lastName, email, blogs, avatar, bio;
-  if (auth?.user?.id === userId) {
-    firstName = auth.user.firstName;
-    lastName = auth.user.lastName;
-    email = auth.user.email;
-    blogs = auth.user.blogs;
-    avatar = auth.user.avatar;
-    bio = auth.user.bio;
-  } else {
-    firstName = profileData?.firstName;
-    lastName = profileData?.lastName;
-    email = profileData?.email;
-    blogs = profileData?.blogs;
-    avatar = profileData?.avatar;
-    bio = profileData?.bio;
-  }
+  const { firstName, lastName, email, blogs, avatar, bio } = profileData || {};
 
   const fullname = `${firstName} ${lastName}`;
 
@@ -73,7 +58,7 @@ export default function Profile() {
         {
           // Profile's blogs
           blogs?.length > 0 ? (
-            blogs?.map((blog) => {
+            blogs.map((blog) => {
               return (
                 <PostCard
                   key={blog.id}

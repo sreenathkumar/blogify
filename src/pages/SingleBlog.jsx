@@ -8,6 +8,7 @@ import { Link, useParams } from "react-router-dom";
 import CommentSection from "@components/CommentSection";
 import Loader from "@components/Loader";
 import AvatarImage from "@components/AvatarImage";
+import ErrorPage from "./ErrorPage";
 
 export default function SingleBlog() {
   const { blogId } = useParams(); //get blogId from url
@@ -32,7 +33,7 @@ export default function SingleBlog() {
   }
 
   if (isError) {
-    return <p>Something went wrong. {error.message}</p>;
+    return <ErrorPage message={error.message} />;
   }
 
   return (
