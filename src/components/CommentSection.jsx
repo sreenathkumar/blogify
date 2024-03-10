@@ -6,6 +6,7 @@ import { useState } from "react";
 import AvatarImage from "./AvatarImage";
 import SingleComment from "./SingleComment";
 import FloatingActions from "./FloatingActions";
+import queryClient from "@utils/queryClient";
 
 const CommentSection = ({ comments, blogId, blogTitle, likes }) => {
   const { auth } = useAuth();
@@ -43,6 +44,7 @@ const CommentSection = ({ comments, blogId, blogTitle, likes }) => {
         if (response.status === 200) {
           setComment(""); //clear the comment field
           setAllComments(response.data.comments); //update the comments
+          queryClient.invalidateQueries(["All", blogId]); //invalidate the cache
           notify("Comment added", "success");
         }
       } catch (err) {
@@ -59,6 +61,7 @@ const CommentSection = ({ comments, blogId, blogTitle, likes }) => {
       const response = await api.delete(`/blogs/${blogId}/comment/${id}`);
       if (response.status === 200) {
         setAllComments(response.data.comments);
+        queryClient.invalidateQueries(["All", blogId]); //invalidate the cache
         notify("Comment deleted", "success");
       }
     } catch (err) {
