@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Register() {
   return (
     <section className="container">
@@ -58,9 +60,9 @@ export default function Register() {
           </div>
           <p className="text-center">
             Already have an account?{" "}
-            <a href="./login.html" className="text-indigo-600 hover:underline">
+            <Link href="/login" className="text-indigo-600 hover:underline">
               Login
-            </a>
+            </Link>
           </p>
         </form>
       </div>
