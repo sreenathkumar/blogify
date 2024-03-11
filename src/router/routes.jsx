@@ -44,6 +44,10 @@ export const router = createBrowserRouter([
                 path: "blog/add-new",
                 element: <CreateBlog />,
               },
+              {
+                path: "blog/:blogId/edit",
+                element: <CreateBlog />,
+              },
             ],
           },
           {

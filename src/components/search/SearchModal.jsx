@@ -16,7 +16,6 @@ const SearchModal = ({ onClose }) => {
   let searchResult = (
     <p className="text-red-500 font-semibold ">No Data Found</p>
   );
-  console.log(data);
 
   // Show loading spinner
   if (isLoading) {
