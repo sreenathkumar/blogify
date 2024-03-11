@@ -1,21 +1,23 @@
 import { createBrowserRouter } from "react-router-dom";
 
 //Components
-import Root from "./Root";
-import Home from "@pages/Home";
-import Register from "@pages/Register";
 import CreateBlog from "@pages/CreateBlog";
-import Login from "@pages/Login";
-import SingleBlog from "@pages/SingleBlog";
-import Profile from "@pages/Profile";
 import ErrorPage from "@pages/ErrorPage";
+import Home from "@pages/Home";
+import Login from "@pages/Login";
+import Profile from "@pages/Profile";
+import Register from "@pages/Register";
+import SingleBlog from "@pages/SingleBlog";
+import loginCheck from "@utils/loginCheck";
 import PrivateRoutes from "./PrivateRoutes";
+import Root from "./Root";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
     errorElement: <ErrorPage />,
+    loader: loginCheck,
     children: [
       {
         errorElement: <ErrorPage />,
