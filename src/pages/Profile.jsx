@@ -48,12 +48,14 @@ export default function Profile() {
         </div>
 
         {/* Bio */}
-        <Bio bio={bio} />
+        <Bio bio={bio} isEditable={auth?.user?.id === userId} />
         <div className="w-3/4 border-b border-[#3F3F3F] py-6 lg:py-8"></div>
       </div>
       {/* End profile info */}
 
-      <h4 className="mt-6 text-xl lg:mt-8 lg:text-2xl">Your Blogs</h4>
+      <h4 className="mt-6 text-xl lg:mt-8 lg:text-2xl">
+        {auth?.user?.id === userId ? "My" : `${fullname}'s`} Blogs
+      </h4>
       <div className="my-6 space-y-4">
         {
           // Profile's blogs

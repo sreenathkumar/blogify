@@ -5,6 +5,7 @@ import editIcon from "@assets/icons/edit.svg";
 import { useAxios } from "@hooks/useAxios";
 import { actions } from "@actions/actions";
 import { useAuth } from "@hooks/useAuth";
+import queryClient from "@utils/queryClient";
 
 const ProfileImage = ({ avatar, fullname, isEditable }) => {
   const { dispatchAuth } = useAuth();
@@ -37,6 +38,7 @@ const ProfileImage = ({ avatar, fullname, isEditable }) => {
             type: actions.auth.USER_UPDATED,
             payload: response?.data?.user,
           });
+          queryClient.invalidateQueries(["profile", response?.data?.user?.id]);
         }
       } catch (error) {
         dispatchProfile({

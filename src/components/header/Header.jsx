@@ -1,11 +1,24 @@
+import { actions } from "@actions/actions";
 import searchIcon from "@assets/icons/search.svg";
 import logo from "@assets/logo.svg";
 import AvatarImage from "@components/AvatarImage";
+import Modal from "@components/Modal";
+import SearchModal from "@components/search/SearchModal";
 import { useAuth } from "@hooks/useAuth";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Header() {
-  const { auth } = useAuth();
+  const { auth, dispatchAuth } = useAuth();
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleLogout = (e) => {
+    e.stopPropagation();
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    dispatchAuth({ type: actions.auth.LOGOUT });
+  };
 
   return (
     <header>
@@ -32,31 +45,46 @@ export default function Header() {
             </li>
             <li>
               <a
-                href="./search.html"
+                onClick={() => setModalOpen(true)}
                 className="flex items-center gap-2 cursor-pointer"
               >
                 <img src={searchIcon} alt="Search" />
                 <span>Search</span>
               </a>
+              {modalOpen && (
+                <Modal>
+                  <SearchModal onClose={() => setModalOpen(false)} />
+                </Modal>
+              )}
             </li>
 
             {/* Logged-in user's avatar and name */}
             {auth?.accessToken ? (
-              <li className="flex items-center">
-                <Link
-                  className="flex items-center"
-                  to={`user/${auth?.user?.id}/profile`}
-                >
-                  <AvatarImage
-                    name={auth?.user?.firstName}
-                    avatar={auth?.user?.avatar}
-                  />
-                  {/* Logged-in user's name */}
-                  <span className="text-white ml-2">
-                    {auth.user?.firstName + " " + auth?.user?.lastName}
-                  </span>
-                </Link>
-              </li>
+              <>
+                <li className="flex items-center">
+                  <Link
+                    className="flex items-center"
+                    to={`user/${auth?.user?.id}/profile`}
+                  >
+                    <AvatarImage
+                      name={auth?.user?.firstName}
+                      avatar={auth?.user?.avatar}
+                    />
+                    {/* Logged-in user's name */}
+                    <span className="text-white ml-2">
+                      {auth.user?.firstName + " " + auth?.user?.lastName}
+                    </span>
+                  </Link>
+                </li>
+                <li>
+                  <a
+                    onClick={handleLogout}
+                    className="text-red-500 cursor-pointer hover:text-white transition-all duration-200"
+                  >
+                    Logout
+                  </a>
+                </li>
+              </>
             ) : (
               <li>
                 <Link

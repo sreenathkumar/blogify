@@ -59,10 +59,7 @@ export default function Home() {
           <div className="md:col-span-2 h-full w-full space-y-5">
             <SidebarCard cardTitle={"Most Popular 👍️"} blogType="popular" />
             {auth?.accessToken && (
-              <SidebarCard
-                cardTitle={"Your Favourites ❤️"}
-                blogType="favourite"
-              />
+              <SidebarCard cardTitle={"Favourites ❤️"} blogType="favourite" />
             )}
           </div>
         </div>

@@ -60,7 +60,7 @@ export default function Register() {
           </div>
           <p className="text-center">
             Already have an account?{" "}
-            <Link href="/login" className="text-indigo-600 hover:underline">
+            <Link to="/login" className="text-indigo-600 hover:underline">
               Login
             </Link>
           </p>
