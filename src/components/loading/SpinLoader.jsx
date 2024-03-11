@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 
 const SpinLoader = forwardRef(function loaderComponent(props, ref) {
   return (
-    <div role="status" ref={ref}>
+    <div role="status" className="w-full flex justify-center" ref={ref}>
       <svg
         aria-hidden="true"
         className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
