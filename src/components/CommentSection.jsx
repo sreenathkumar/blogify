@@ -1,16 +1,14 @@
 import { useAuth } from "@hooks/useAuth";
 import { useAxios } from "@hooks/useAxios";
-import { useProfile } from "@hooks/useProfile";
 import { notify } from "@utils/general";
+import queryClient from "@utils/queryClient";
 import { useState } from "react";
 import AvatarImage from "./AvatarImage";
-import SingleComment from "./SingleComment";
 import FloatingActions from "./FloatingActions";
-import queryClient from "@utils/queryClient";
+import SingleComment from "./SingleComment";
 
 const CommentSection = ({ comments, blogId, blogTitle, likes }) => {
   const { auth } = useAuth();
-  const { state } = useProfile();
 
   //modifided api
   const api = useAxios();
@@ -20,10 +18,8 @@ const CommentSection = ({ comments, blogId, blogTitle, likes }) => {
   const [comment, setComment] = useState(""); //state to hold the comment
   const [error, setError] = useState(null); //state to hold the error message
 
-  const avatar = state?.user?.avatar || auth?.user?.avatar;
-  const authorName =
-    `${state?.user?.firstName} ${state?.user?.lastName}` ||
-    `${auth?.user?.firstName} ${auth?.user?.lastName}`;
+  const avatar = auth?.user?.avatar;
+  const authorName = `${auth?.user?.firstName} ${auth?.user?.lastName}`;
 
   //handle comment submission
   const handleComment = async (e) => {
