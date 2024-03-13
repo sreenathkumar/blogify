@@ -4,15 +4,21 @@ import deleteIcon from "@icons/delete.svg";
 import editIcon from "@icons/edit.svg";
 import { notify } from "@utils/general";
 import queryClient from "@utils/queryClient";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function ActionMenu({ id, onDelete }) {
   const api = useAxios();
   const { auth } = useAuth();
+  const navigate = useNavigate();
 
   const handleDeleteBlog = async (e) => {
     e.stopPropagation();
 
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this blog?"
+    );
+    if (!confirmed) return;
     //deleting the blog
     const deleteToast = toast.loading("Deleting the blog...");
     try {
@@ -52,7 +58,6 @@ export default function ActionMenu({ id, onDelete }) {
         return true;
       }
     } catch (error) {
-      console.log(error);
       //handle error
       toast.update(toastId, {
         render: error.message,
@@ -87,9 +92,19 @@ export default function ActionMenu({ id, onDelete }) {
     }
   };
 
+  //fuction to handle the edit blog
+  const handleEditBlog = (e) => {
+    e.stopPropagation();
+    //navigate to the edit page
+    navigate(`/blog/${id}/edit`);
+  };
+
   return (
     <div className="action-modal-container">
-      <button className="action-menu-item hover:text-lwsGreen">
+      <button
+        onClick={handleEditBlog}
+        className="action-menu-item hover:text-lwsGreen"
+      >
         <img src={editIcon} alt="Edit" />
         Edit
       </button>
