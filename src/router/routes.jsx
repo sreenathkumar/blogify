@@ -8,16 +8,18 @@ import Login from "@pages/Login";
 import Profile from "@pages/Profile";
 import Register from "@pages/Register";
 import SingleBlog from "@pages/SingleBlog";
-import loginCheck from "@utils/loginCheck";
+import rootLoader from "@loaders/rootLoader";
 import PrivateRoutes from "./PrivateRoutes";
 import Root from "./Root";
+import editBlogLoader from "@loaders/editBlogLoader";
+import EditBlog from "@components/EditBlog";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
     errorElement: <ErrorPage />,
-    loader: loginCheck,
+    loader: rootLoader,
     children: [
       {
         errorElement: <ErrorPage />,
@@ -48,7 +50,9 @@ export const router = createBrowserRouter([
               },
               {
                 path: "blog/:blogId/edit",
-                element: <CreateBlog />,
+                element: <EditBlog />,
+                id: "edit-blog", //id to identify the loader "editBlogLoader
+                loader: editBlogLoader,
               },
             ],
           },

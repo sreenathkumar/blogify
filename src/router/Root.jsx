@@ -13,7 +13,8 @@ import { useEffect, useState } from "react";
 
 export default function Root() {
   const { auth, dispatchAuth } = useAuth();
-  const { accessToken, refreshToken, user } = useLoaderData();
+
+  const { accessToken, refreshToken, user } = useLoaderData() || {};
   const [isChecked, setIsChecked] = useState(false); //if login status checked or not
 
   useEffect(() => {
