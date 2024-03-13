@@ -14,7 +14,7 @@ const SearchModal = ({ onClose }) => {
 
   //default search result
   let searchResult = (
-    <p className="text-red-500 font-semibold ">No Data Found</p>
+    <p className="text-red-500 font-semibold ">Please type something</p>
   );
 
   // Show loading spinner

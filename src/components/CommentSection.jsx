@@ -53,6 +53,10 @@ const CommentSection = ({ comments, blogId, blogTitle, likes }) => {
 
   //hadle comment deletion
   const handleDelete = async (id) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this comment?"
+    );
+    if (!confirmed) return;
     try {
       const response = await api.delete(`/blogs/${blogId}/comment/${id}`);
       if (response.status === 200) {

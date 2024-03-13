@@ -2,16 +2,15 @@ import { actions } from "@actions/actions";
 import searchIcon from "@assets/icons/search.svg";
 import logo from "@assets/logo.svg";
 import AvatarImage from "@components/AvatarImage";
-import Modal from "@components/Modal";
 import SearchModal from "@components/search/SearchModal";
 import { useAuth } from "@hooks/useAuth";
-import { useState } from "react";
+import usePortal from "@hooks/usePortal";
 import { Link } from "react-router-dom";
 
 export default function Header() {
   const { auth, dispatchAuth } = useAuth();
-
-  const [modalOpen, setModalOpen] = useState(false);
+  const { openModal, closeModal, ModalPortal } = usePortal();
+  //const [modalOpen, setModalOpen] = useState(false);
 
   const handleLogout = (e) => {
     e.stopPropagation();
@@ -45,17 +44,16 @@ export default function Header() {
             </li>
             <li>
               <a
-                onClick={() => setModalOpen(true)}
+                onClick={() => openModal()}
                 className="flex items-center gap-2 cursor-pointer"
               >
                 <img src={searchIcon} alt="Search" />
                 <span>Search</span>
               </a>
-              {modalOpen && (
-                <Modal>
-                  <SearchModal onClose={() => setModalOpen(false)} />
-                </Modal>
-              )}
+
+              <ModalPortal>
+                <SearchModal onClose={closeModal} />
+              </ModalPortal>
             </li>
 
             {/* Logged-in user's avatar and name */}
