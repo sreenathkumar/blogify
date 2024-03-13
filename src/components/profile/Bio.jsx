@@ -39,8 +39,7 @@ const Bio = ({ bio, isEditable }) => {
 
     setBioText(bioText);
   };
-  console.log(bio);
-  console.log("bio:", bioText.length);
+
   return (
     <div className="mt-4 flex items-start gap-2 lg:mt-6">
       {
