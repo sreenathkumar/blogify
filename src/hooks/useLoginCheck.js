@@ -1,20 +1,24 @@
 import { actions } from "@actions/actions";
 import { api } from "@api/api";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const useLoginCheck = (auth, dispatchAuth) => {
+  const [isChecking, setIsChecking] = useState(true);
+
   useEffect(() => {
     if (!auth || !auth.accessToken) {
       const localToken = localStorage.getItem("token"); //get the token from local storage
       const localUserId = localStorage.getItem("userId"); //get the user from local storage
-      console.log("localuserId: ", localUserId);
+
+      //do further checking if the token is available
       if (localToken && localUserId) {
         const { refreshToken, createdAt } = JSON.parse(localToken); //parse the token
 
         const now = new Date().getTime();
         const diff = now - createdAt;
 
+        //if the token is less than 24 hours old, then refresh the token
         if (diff < 24 * 60 * 60 * 1000) {
           axios
             .all([
@@ -22,9 +26,14 @@ const useLoginCheck = (auth, dispatchAuth) => {
               api.get(`/profile/${localUserId}`),
             ])
             .then(
-              axios.spread((res1, res2) => {
-                if (res1.status === 200 && res2.status === 200) {
-                  const { accessToken, refreshToken } = res1.data;
+              axios.spread((tokenResponse, profileResponse) => {
+                if (
+                  tokenResponse.status === 200 &&
+                  profileResponse.status === 200
+                ) {
+                  const { accessToken, refreshToken } = tokenResponse.data;
+
+                  //set the token and userId in local storage
                   localStorage.setItem(
                     "token",
                     JSON.stringify({
@@ -33,9 +42,15 @@ const useLoginCheck = (auth, dispatchAuth) => {
                       createdAt: new Date().getTime(),
                     })
                   );
+
+                  // update the auth state
                   dispatchAuth({
                     type: actions.auth.LOGIN,
-                    payload: { accessToken, refreshToken, user: res2.data },
+                    payload: {
+                      accessToken,
+                      refreshToken,
+                      user: profileResponse.data,
+                    },
                   });
                 }
               })
@@ -46,7 +61,10 @@ const useLoginCheck = (auth, dispatchAuth) => {
         }
       }
     }
+    setIsChecking(false);
   }, []);
+
+  return isChecking;
 };
 
 export default useLoginCheck;
