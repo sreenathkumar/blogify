@@ -23,6 +23,7 @@ const useSearch = (text) => {
         }
       } catch (error) {
         setIsLoading(false);
+        setData([]);
         setIsError(true);
         setError(error.response.data);
       }
