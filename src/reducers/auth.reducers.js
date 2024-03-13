@@ -67,12 +67,6 @@ export const authReducer = (state, action) => {
         refreshToken: action.payload.refreshToken,
       };
     case actions.auth.AUTH_BLOG_CREATED:
-      if (state.blogs.length === 0) {
-        return {
-          ...state,
-          blogs: [action.payload],
-        };
-      }
       return {
         ...state,
         user: {
@@ -80,10 +74,12 @@ export const authReducer = (state, action) => {
           blogs: [...state.user.blogs, action.payload],
         },
       };
-    case actions.auth.AUTH_BLOG_ADDED:
+    case actions.auth.AUTH_BLOG_UPDATED:
       return {
         ...state,
-        blogs: [...state.blogs, ...action.payload],
+        blogs: state.blogs.map((blog) =>
+          blog.id === action.payload.id ? action.payload : blog
+        ),
       };
     case actions.auth.AUTH_BLOG_DELETED:
       return {

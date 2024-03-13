@@ -1,10 +1,10 @@
-import Field from "@components/Field";
 import { useAuth } from "@hooks/useAuth";
 import { useBlogMutation } from "@hooks/useBlogMutation";
 import { useForm } from "react-hook-form";
 import { useLoaderData, useNavigate } from "react-router-dom";
+import Field from "./Field";
 
-export default function CreateBlog() {
+const EditBlog = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
   const loaderData = useLoaderData(); //get the data from the route loader
@@ -23,7 +23,6 @@ export default function CreateBlog() {
     },
   });
 
-  //calling the useBlogMutation hook which will handle the image upload and blog creation
   const {
     imageFieldRef,
     handleImageUpload,
@@ -31,8 +30,10 @@ export default function CreateBlog() {
     currentImage,
     blogImage,
     imageError,
-  } = useBlogMutation({ type: "create" }, reset);
-  console.log(imageFieldRef, auth);
+  } = useBlogMutation(
+    { type: "edit", id: loaderData?.id, thumbnail: loaderData?.thumbnail },
+    reset
+  );
 
   //if the user is not the author of the blog
   if (loaderData?.author?.id !== auth?.user?.id && loaderData) {
@@ -61,7 +62,7 @@ export default function CreateBlog() {
         <form className="createBlog" onSubmit={handleSubmit(onSubmit)}>
           <div
             onClick={handleImageUpload}
-            className="grid place-items-center bg-slate-600/20 h-[150px] rounded-md my-4 cursor-pointer
+            className="grid place-items-center bg-slate-600/20 h-[150px] rounded-md my-4
           "
             style={{
               backgroundImage: blogImage ? `url(${currentImage})` : "none",
@@ -131,11 +132,13 @@ export default function CreateBlog() {
               type="submit"
               className="bg-indigo-600 text-white px-6 py-2 md:py-3 rounded-md hover:bg-indigo-700 transition-all duration-200"
             >
-              Create Blog
+              Update Blog
             </button>
           </Field>
         </form>
       </div>
     </section>
   );
-}
+};
+
+export default EditBlog;
