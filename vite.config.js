@@ -16,6 +16,7 @@ export default defineConfig({
       "@context": "/src/context",
       "@reducers": "/src/reducers",
       "@actions": "/src/actions",
+      "@loaders": "/src/loaders",
     },
   },
 });
