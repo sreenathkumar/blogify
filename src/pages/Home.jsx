@@ -7,7 +7,6 @@ import { useRef } from "react";
 
 export default function Home() {
   const { auth } = useAuth();
-  //const { data, error, isLoading, isError } = useBlogs("All");
   const loaderRef = useRef(null);
   const {
     data: blogs,
