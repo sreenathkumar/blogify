@@ -45,6 +45,9 @@ export const findLiked = (likes, id) => {
 
 //create data url of file
 export function fileToDataURL(file) {
+  if (!file) {
+    return;
+  }
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
@@ -68,3 +71,13 @@ export function objectToFormData(obj) {
   }
   return formData;
 }
+
+export const blobToFile = (theBlob, fileName) => {
+  const parts = fileName.split(".");
+  const extension = parts[parts.length - 1].toLowerCase();
+
+  const file = new File([theBlob], fileName, {
+    type: `image/${extension}`,
+  });
+  return file;
+};
