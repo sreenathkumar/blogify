@@ -10,12 +10,10 @@ const usePortal = () => {
   };
 
   const closeModal = () => {
-    console.log("close modal");
     setIsOpen(false);
   };
 
   const ModalPortal = ({ children }) => {
-    console.log(!isOpen);
     if (!modalRoot || !isOpen) return null;
 
     return createPortal(

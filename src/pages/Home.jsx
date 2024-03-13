@@ -51,7 +51,11 @@ export default function Home() {
             ) : (
               <div className="text-center">{error}</div>
             )}
-            {hasMore && <LoadingPost ref={loaderRef} />}
+            {hasMore ? (
+              <LoadingPost ref={loaderRef} />
+            ) : (
+              <p className="text-red-500 text-sm "> No more blogs to show</p>
+            )}
           </div>
 
           {/* <!-- Sidebar --> */}
