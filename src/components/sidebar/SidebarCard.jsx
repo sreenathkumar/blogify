@@ -1,4 +1,4 @@
-import Loader from "@components/Loader";
+import SpinLoader from "@components/loading/SpinLoader";
 import { useBlogs } from "@hooks/useBlogs";
 import SingleSidebarBlog from "./SinglePopularBlog";
 
@@ -10,14 +10,35 @@ export default function SidebarCard({ cardTitle, blogType }) {
   // ========================================================================
   const { data: blogData, error, isLoading, isError } = useBlogs(blogType);
 
+  let content = (
+    <ul className="space-y-5 my-5">
+      {blogData?.blogs?.length > 0 ? (
+        blogData.blogs.map((blog) => (
+          <SingleSidebarBlog
+            key={blog.id}
+            blogId={blog.id}
+            title={blog.title}
+            author={blog.author?.firstName + "" + blog.author?.lastName}
+            authorId={blog.author?.id}
+            likes={blog.likes?.length}
+            tags={blog.tags.split(",")}
+            type={blogType}
+          />
+        ))
+      ) : (
+        <p className=" text-red-400">No Blogs available</p>
+      )}
+    </ul>
+  );
+
   // Show loading spinner when data is loading
-  if (isLoading) {
-    return <Loader />;
+  if (isLoading && !isError) {
+    content = <SpinLoader />;
   }
 
   // Show error message which somting went wrong
   if (isError) {
-    return <p>{error.message}</p>;
+    content = <p>{error.message}</p>;
   }
 
   return (
@@ -26,25 +47,7 @@ export default function SidebarCard({ cardTitle, blogType }) {
         <h3 className="text-slate-300 text-xl lg:text-2xl font-semibold">
           {cardTitle}
         </h3>
-
-        <ul className="space-y-5 my-5">
-          {blogData?.blogs?.length > 0 ? (
-            blogData.blogs.map((blog) => (
-              <SingleSidebarBlog
-                key={blog.id}
-                blogId={blog.id}
-                title={blog.title}
-                author={blog.author?.firstName + "" + blog.author?.lastName}
-                authorId={blog.author?.id}
-                likes={blog.likes?.length}
-                tags={blog.tags.split(",")}
-                type={blogType}
-              />
-            ))
-          ) : (
-            <p className=" text-red-400">No Blogs available</p>
-          )}
-        </ul>
+        {content}
       </div>
     </>
   );
