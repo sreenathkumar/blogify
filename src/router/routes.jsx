@@ -1,9 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 
 //Components
-import EditBlog from "@components/EditBlog";
-import editBlogLoader from "@loaders/editBlogLoader";
-import rootLoader from "@loaders/rootLoader";
 import CreateBlog from "@pages/CreateBlog";
 import ErrorPage from "@pages/ErrorPage";
 import Home from "@pages/Home";
@@ -11,9 +8,12 @@ import Login from "@pages/Login";
 import Profile from "@pages/Profile";
 import Register from "@pages/Register";
 import SingleBlog from "@pages/SingleBlog";
-import Test from "@pages/Test";
+import rootLoader from "@loaders/rootLoader";
 import PrivateRoutes from "./PrivateRoutes";
 import Root from "./Root";
+import editBlogLoader from "@loaders/editBlogLoader";
+import EditBlog from "@components/EditBlog";
+import Tags from "@pages/Tags";
 
 export const router = createBrowserRouter([
   {
@@ -61,14 +61,14 @@ export const router = createBrowserRouter([
             path: "user/:userId/profile",
             element: <Profile />,
           },
-          {
-            path: "/test",
-            element: <Test />,
-          },
           // {
-          //   path: "/tags/:tag",
-          //   element: <Tags />,
+          //   path: "/test",
+          //   element: <Test />,
           // },
+          {
+            path: "/tags/:tag",
+            element: <Tags />,
+          },
         ],
       },
     ],
