@@ -67,13 +67,24 @@ export const authReducer = (state, action) => {
         refreshToken: action.payload.refreshToken,
       };
     case actions.auth.AUTH_BLOG_CREATED:
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          blogs: [...state.user.blogs, action.payload],
-        },
-      };
+      if (state.user.blogs && state.user.blogs.length > 0) {
+        return {
+          ...state,
+          user: {
+            ...state.user,
+            blogs: [...state.user.blogs, action.payload],
+          },
+        };
+      } else {
+        return {
+          ...state,
+          user: {
+            ...state.user,
+            blogs: [action.payload],
+          },
+        };
+      }
+
     case actions.auth.AUTH_BLOG_UPDATED:
       return {
         ...state,
