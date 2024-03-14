@@ -1,5 +1,9 @@
 import { forwardRef } from "react";
 
+// =================================================================
+// The component which will show when the post
+// is loading in home page
+// =================================================================
 const LoadingPost = forwardRef(function loadingPost(props, ref) {
   return (
     <div

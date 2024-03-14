@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
 
+// ====================================================================
+// Custom hook which creates a modal portal
+// ====================================================================
 const usePortal = () => {
   const modalRoot = document.getElementById("modal-root");
   const [isOpen, setIsOpen] = useState(false);

@@ -9,9 +9,13 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   const { auth, dispatchAuth } = useAuth();
-  const { openModal, closeModal, ModalPortal } = usePortal();
-  //const [modalOpen, setModalOpen] = useState(false);
+  const { openModal, closeModal, ModalPortal } = usePortal(); //hook to open and close the search modal
 
+  // =================================================================
+  // Function to handle the logout
+  // It will remove the token from the local storage.
+  // Logout the user and update the context
+  // ================================================================
   const handleLogout = (e) => {
     e.stopPropagation();
     localStorage.removeItem("token");

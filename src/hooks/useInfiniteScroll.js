@@ -1,6 +1,11 @@
 import { api } from "@api/api";
 import { useEffect, useState } from "react";
 
+// ====================================================================
+// Custom hook which fetches the blogs according to the page and limit
+// Take the api URL, the reference object of the element
+// which triggers the refetch and the number of blogs to fetch
+// ====================================================================
 const useInfiniteScroll = (url, elementRef, limit = 10) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);

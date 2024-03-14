@@ -1,5 +1,8 @@
 import { api } from "@api/api";
 
+// ================================================================
+// Loader function to fetch the blog data for editing
+// ================================================================
 const editBlogLoader = async ({ params }) => {
   const { blogId } = params;
 

@@ -26,8 +26,9 @@ export default function PostCard({
   const { auth } = useAuth();
   const [actionHidden, setActionHidden] = useState(true);
   const navigate = useNavigate();
-  const { Tooltip, showTooltip, hideTooltip } = useToolTip();
+  const { Tooltip, showTooltip, hideTooltip } = useToolTip(); // tooltip which shows full title on hover
 
+  //Function to toggle the action menu
   const toggleActionMenu = (e) => {
     e.stopPropagation();
     setActionHidden(!actionHidden);

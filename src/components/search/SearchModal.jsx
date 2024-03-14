@@ -12,17 +12,17 @@ const SearchModal = ({ onClose }) => {
     setSearchedText(e.target.value);
   };
 
-  //default search result
+  //default search result when first land
   let searchResult = (
     <p className="text-red-500 font-semibold ">Please type something</p>
   );
 
-  // Show loading spinner
+  // Show loading spinner when data is loading
   if (isLoading) {
     searchResult = <SpinLoader />;
   }
 
-  // Show error message
+  // Show error message which somting went wrong
   if (isError) {
     searchResult = (
       <p className="text-red-500 font-semibold ">
@@ -31,7 +31,7 @@ const SearchModal = ({ onClose }) => {
     );
   }
 
-  //if data is available
+  //if data is available then show the search result
   if (data.length > 0) {
     searchResult = data.map((blog) => (
       <SearchResult

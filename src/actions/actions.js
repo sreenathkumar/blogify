@@ -1,3 +1,8 @@
+// ==================================================
+// This file contains all the action types that are used in the application.
+// It is used to maintain a single source of truth for all the action types.
+// ==================================================
+
 export const actions = {
   auth: {
     STATUS_UPDATE: "AUTH_STATUS_UPDATE",

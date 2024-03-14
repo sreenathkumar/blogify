@@ -16,6 +16,9 @@ const Field = ({ label, htmlFor, children, error, className }) => {
   );
 };
 
+// ===============================================================
+// Function which returns the id of the child element
+// ===============================================================
 const getChildId = (children) => {
   const child = React.Children.only(children);
 

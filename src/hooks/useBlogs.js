@@ -3,7 +3,10 @@ import { useAxios } from "./useAxios";
 import { api } from "@api/api";
 import { useAuth } from "./useAuth";
 
-// hook to fetch blogs based on the type of blog
+// ================================================================
+// Custom hook which fetches the blogs based on the type
+// Maintained a cache for those requests
+// ================================================================
 export const useBlogs = (type) => {
   const { auth } = useAuth();
   const privateApi = useAxios(); //authenticated api

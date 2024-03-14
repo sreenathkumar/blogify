@@ -3,6 +3,12 @@ import { api } from "@api/api";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
+// ====================================================================
+// Custom hook which checks if the token in the local storage is valid
+// If it is, it refreshes the token and updates the auth state
+// Set the new token in the local storage
+// Take the auth state and the dispatch function
+// ====================================================================
 const useLoginCheck = (auth, dispatchAuth) => {
   const [isChecking, setIsChecking] = useState(true);
 

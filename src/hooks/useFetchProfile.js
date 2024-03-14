@@ -1,6 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAxios } from "./useAxios";
 
+// ================================================================
+// Custom hook which fetches the profile of the user and
+// maintains a cache of it
+// ================================================================
 const useFetchProfile = (userId) => {
   const api = useAxios();
   //function to handle server request

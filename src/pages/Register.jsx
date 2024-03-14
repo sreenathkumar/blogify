@@ -17,10 +17,11 @@ export default function Register() {
     setError,
   } = useForm();
 
-  //handle form submission
+  // ===============================================================
+  // Function to handle the registeration
+  // ===============================================================
   const onSubmit = async (data) => {
     //send data to the server and authenticate the user
-    //const formData = objectToFormData(data);
 
     try {
       //handle the form submission
@@ -38,6 +39,7 @@ export default function Register() {
     }
   };
 
+  //redirect to home if user is already logged in
   useEffect(() => {
     if (auth?.status === "loggedIn") {
       navigate(`/`);

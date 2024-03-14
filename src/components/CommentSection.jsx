@@ -21,7 +21,11 @@ const CommentSection = ({ comments, blogId, blogTitle, likes }) => {
   const avatar = auth?.user?.avatar;
   const authorName = `${auth?.user?.firstName} ${auth?.user?.lastName}`;
 
-  //handle comment submission
+  // ================================================================
+  // Function which checks for empty comments.
+  // If the comment is not empty, it sends the comment to the server.
+  // If the comment is empty, it sets the error message.
+  // ================================================================
   const handleComment = async (e) => {
     e.preventDefault();
     // check if logged in
@@ -51,7 +55,11 @@ const CommentSection = ({ comments, blogId, blogTitle, likes }) => {
     }
   };
 
-  //hadle comment deletion
+  // ================================================================
+  // Function to delete a comment after user confirmation
+  // It takes the comment id as a parameter which is used
+  // to delete the comment
+  // ================================================================
   const handleDelete = async (id) => {
     const confirmed = window.confirm(
       "Are you sure you want to delete this comment?"

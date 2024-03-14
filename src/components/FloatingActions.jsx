@@ -27,9 +27,10 @@ const FloatingActions = ({
   //check if the blog is a favourite
   const isFavourite = findFavourite(auth?.user?.favourites, blogId);
 
-  //======================================
-  //handle  like button
-  //======================================
+  // ======================================
+  // toggle like button
+  // check if it is authenticated
+  // ======================================
   const handleLike = async () => {
     if (auth?.accessToken) {
       //handle like
@@ -52,9 +53,9 @@ const FloatingActions = ({
     }
   };
 
-  //======================================
-  //handle  favourite button
-  //======================================
+  // ======================================
+  // toggle favourite button
+  // ======================================
   const handleFavourite = async () => {
     if (auth?.accessToken) {
       //optimistic update

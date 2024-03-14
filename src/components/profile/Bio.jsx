@@ -11,10 +11,14 @@ const Bio = ({ bio, isEditable }) => {
   const { dispatch } = useProfile();
   const api = useAxios();
 
-  const [bioText, setBioText] = useState(bio);
+  const [bioText, setBioText] = useState(bio); //state to store the bio text
   const [isEditing, setIsEditing] = useState(false);
 
-  //handler function to handle the bio text change
+  // ===============================================================
+  // handler function to handle the bio text change
+  // It will send the new bio to the server
+  // on success it will update the context and invalidate the query
+  // ===============================================================
   const handleBioChange = async (e) => {
     e.preventDefault();
     dispatch({ type: actions.profile.DATA_LOADING });

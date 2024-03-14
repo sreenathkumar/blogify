@@ -15,6 +15,7 @@ export default function SingleBlog() {
 
   const { data: blog, error, isError, isLoading } = useSingleBlog(blogId); //fetch single blog
 
+  //destructure the blog data
   const {
     title,
     content,

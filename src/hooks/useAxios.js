@@ -4,6 +4,12 @@ import { useAuth } from "./useAuth";
 import { api } from "@api/api";
 import { actions } from "@actions/actions";
 
+// ================================================================
+// custom hook which intercept the request and response
+// and checks if the token is expired
+// if it is, it refreshes the token and retries the request
+// ================================================================
+
 export const useAxios = () => {
   const { auth, dispatchAuth } = useAuth();
 

@@ -6,6 +6,13 @@ import { useAuth } from "./useAuth";
 import { toast } from "react-toastify";
 import { actions } from "@actions/actions";
 
+// ================================================================
+// custom hook which handles the blog creation and editing
+// takes the type of mutation, the id of the blog, the thumbnail
+// and state reset function when it is in edit mode
+// otherwise it just takes the type of mutation and reset
+// ================================================================
+
 export const useBlogMutation = (blogAction, reset) => {
   const api = useAxios();
   const navigate = useNavigate();
@@ -33,18 +40,18 @@ export const useBlogMutation = (blogAction, reset) => {
     }
   };
 
-  //=================================
-  //function handle image upload
-  //=================================
+  // =================================
+  // function handle image upload
+  // =================================
   const handleImageUpload = (e) => {
     e.preventDefault();
     imageFieldRef.current.addEventListener("change", handleImageChange);
     imageFieldRef.current.click();
   };
 
-  //====================================
+  // ====================================
   // function to create blog
-  //====================================
+  // ====================================
   const createBlog = async (data, toastId) => {
     try {
       const response = await api.post("/blogs", data);
@@ -81,9 +88,9 @@ export const useBlogMutation = (blogAction, reset) => {
     }
   };
 
-  //====================================
+  // ====================================
   // function to update blog
-  //====================================
+  // ====================================
   const updateBlog = async (data, id, toastId) => {
     if (id) {
       try {

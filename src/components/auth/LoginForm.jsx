@@ -6,6 +6,9 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+  const { dispatchAuth } = useAuth();
+
   const {
     register,
     handleSubmit,
@@ -13,10 +16,10 @@ const LoginForm = () => {
     setError,
   } = useForm();
 
-  const navigate = useNavigate();
-  const { dispatchAuth } = useAuth();
-
-  // Handle form submission
+  // =================================================================
+  // Function which will be called when the form is submitted
+  // It will send the data to the server and authenticate the user
+  // ================================================================
   const onSubmit = async (data) => {
     //send data to the server and authenticate the user
     try {
@@ -28,6 +31,7 @@ const LoginForm = () => {
           const accessToken = token.accessToken;
           const refreshToken = token.refreshToken;
 
+          //store the token in the local storage
           localStorage.setItem(
             "token",
             JSON.stringify({
@@ -36,7 +40,7 @@ const LoginForm = () => {
               createdAt: new Date().getTime(),
             })
           );
-          localStorage.setItem("userId", user.id);
+          localStorage.setItem("userId", user.id); //store the user id in the local storage
 
           //set the token in the context
           dispatchAuth({

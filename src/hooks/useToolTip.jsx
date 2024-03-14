@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { createPortal } from "react-dom";
 
+// ====================================================================
+// Custom hook which creates a tooltip portal on hover
+// ====================================================================
 const useTooltip = () => {
   const modalRoot = document.getElementById("modal-root");
   const [isVisible, setIsVisible] = useState(false);

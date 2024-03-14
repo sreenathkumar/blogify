@@ -1,5 +1,8 @@
 import { forwardRef } from "react";
 
+// =================================================================
+// The component which will show a circled loader
+// =================================================================
 const SpinLoader = forwardRef(function loaderComponent(props, ref) {
   return (
     <div role="status" className="w-full flex justify-center" ref={ref}>

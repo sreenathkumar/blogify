@@ -1,3 +1,7 @@
+// =======================================================
+// Custom hook which makes a list of loading cards
+// Take the number of cards and the loading card component
+// =======================================================
 const useLoadingCards = (numCards, CardComponent) => {
   const CardList = () => {
     const cards = Array.from({ length: numCards }, (_, index) => index + 1);

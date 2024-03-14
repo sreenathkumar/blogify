@@ -1,6 +1,11 @@
 import { api } from "@api/api";
 import axios from "axios";
 
+// ================================================================
+// Root loader function to check the token and get the user
+// This is useful for checking the token and getting the user profile
+// when user lands through direct URL or refresh the page
+// ================================================================
 const rootLoader = async () => {
   const localToken = localStorage.getItem("token"); //get the token from local storage
   const localUserId = localStorage.getItem("userId"); //get the user from local storage

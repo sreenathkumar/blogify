@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+//Blog item comonent whcih will be used in the sidebar
 export default function SingleSidebarBlog({
   blogId,
   title,

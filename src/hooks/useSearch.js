@@ -1,7 +1,9 @@
 import { api } from "@api/api";
 import { useEffect, useState } from "react";
 
-//handle searching using debounce
+// ================================================================
+// Custom hook to handle the search functionality with debounce
+// ================================================================
 const useSearch = (text) => {
   const [data, setData] = useState([]); //state to hold the api data
   const [error, setError] = useState(null); //state to hold the error

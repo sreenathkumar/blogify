@@ -13,14 +13,22 @@ const ProfileImage = ({ avatar, fullname, isEditable }) => {
   const fileRef = useRef(null);
   const api = useAxios();
 
-  //handle image upload
+  // =================================================================
+  // 1. Function to handle image upload
+  // 2. It will open the file dialog
+  // 3. Listen the file change event
+  // =================================================================
   const handleImageUpload = (e) => {
     e.preventDefault();
     fileRef.current.addEventListener("change", handleImageChange);
     fileRef.current.click();
   };
 
-  // function to handle image change
+  // ================================================================
+  // 1. This fuction will trigger when image is selected
+  // 2. It will upload the image when user selects the image
+  // 3. On success it will update the context and invalidate the query
+  // ================================================================
   const handleImageChange = async (e) => {
     for (const file of e.target.files) {
       const formData = new FormData();

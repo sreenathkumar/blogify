@@ -3,13 +3,19 @@ import { useBlogs } from "@hooks/useBlogs";
 import SingleSidebarBlog from "./SinglePopularBlog";
 
 export default function SidebarCard({ cardTitle, blogType }) {
-  //call hook using blogType
+  // ========================================================================
+  // 1. Custom hook to fetch and cache the blogs based on the type of blogs
+  // 2. Accept parameter which defines the type of blogs
+  // 3. Blog Type: popular, favourite, All(default)s
+  // ========================================================================
   const { data: blogData, error, isLoading, isError } = useBlogs(blogType);
 
+  // Show loading spinner when data is loading
   if (isLoading) {
     return <Loader />;
   }
 
+  // Show error message which somting went wrong
   if (isError) {
     return <p>{error.message}</p>;
   }

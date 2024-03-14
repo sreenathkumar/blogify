@@ -12,6 +12,14 @@ export default function ActionMenu({ id, onDelete }) {
   const { auth } = useAuth();
   const navigate = useNavigate();
 
+  // ================================================================
+  // 1. Function to handle the delete blog
+  // 2. Stop envent propagation
+  // 3. Take a confirmation about the delete
+  // 4. If confirmed, check if the blog is in the user's favourites
+  // 5. If isFavorite true, unfavourite the blog
+  // 6. Send delete request to the server
+  // ================================================================
   const handleDeleteBlog = async (e) => {
     e.stopPropagation();
 
@@ -47,7 +55,12 @@ export default function ActionMenu({ id, onDelete }) {
     }
   };
 
-  //function to unfavourite a blog
+  // ================================================================
+  // 1. Function to handle the unfavourite blog
+  // 2. Takes blog id and toast id as parameters to show update of that toast
+  // 2. Send a request to the server to update the favourite status
+  // 3. Invalidate the favourite query
+  // ================================================================
   const unfavouriteBlog = async (id, toastId) => {
     //send a request to the server to update the favourite status and invalidate the favourite query
     try {
@@ -67,7 +80,9 @@ export default function ActionMenu({ id, onDelete }) {
     }
   };
 
-  //function to handle the delete blog
+  // ================================================================
+  // function to the delete blog and invalidate the query cache
+  // =================================================================
   const deleteBlog = async (id, toastId) => {
     //send a request to the server to delete the blog
     try {
@@ -91,7 +106,9 @@ export default function ActionMenu({ id, onDelete }) {
     }
   };
 
-  //fuction to handle the edit blog
+  // ================================================================
+  // fuction which will redirect to the edit page
+  // =================================================================
   const handleEditBlog = (e) => {
     e.stopPropagation();
     //navigate to the edit page

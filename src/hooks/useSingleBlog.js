@@ -1,6 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { useAxios } from "./useAxios";
 
+// ================================================================
+// Custom hook which fetches the single blog and set the cache
+// ================================================================
 export const useSingleBlog = (id) => {
   const api = useAxios();
 

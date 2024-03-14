@@ -9,7 +9,10 @@ const EditBlog = () => {
   const navigate = useNavigate();
   const loaderData = useLoaderData(); //get the data from the route loader
 
-  //call the useForm
+  // ================================================================
+  // React hook form initialized with default values
+  // obtained from the loaderData
+  // ================================================================
   const {
     register,
     handleSubmit,
@@ -23,6 +26,12 @@ const EditBlog = () => {
     },
   });
 
+  // ================================================================
+  // custom hook which handles the blog creation and editing
+  // takes the type of mutation, the id of the blog, the thumbnail
+  // and state reset function when it is in edit mode
+  // otherwise it just takes the type of mutation and reset
+  // ================================================================
   const {
     imageFieldRef,
     handleImageUpload,
