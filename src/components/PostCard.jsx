@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import threeDots from "@icons/3dots.svg"; //three dots icon
 import ActionMenu from "./ActionMenu";
 import AvatarImage from "./AvatarImage";
+import useToolTip from "@hooks/useToolTip";
 
 export default function PostCard({
   id,
@@ -25,6 +26,7 @@ export default function PostCard({
   const { auth } = useAuth();
   const [actionHidden, setActionHidden] = useState(true);
   const navigate = useNavigate();
+  const { Tooltip, showTooltip, hideTooltip } = useToolTip();
 
   const toggleActionMenu = (e) => {
     e.stopPropagation();
@@ -46,7 +48,17 @@ export default function PostCard({
       />
 
       <div className="mt-2 relative">
-        <h3 className="text-slate-300 text-xl lg:text-2xl">{title}</h3>
+        {/* ToolTip */}
+        <Tooltip>
+          <span>{title}</span>
+        </Tooltip>
+        <h3
+          onMouseEnter={showTooltip}
+          onMouseLeave={hideTooltip}
+          className="text-slate-300 text-xl lg:text-2xl"
+        >
+          {truncateText(title, 35)}
+        </h3>
 
         <p className="mb-6 text-base text-slate-500 mt-1">
           {truncateText(content, 160)}
