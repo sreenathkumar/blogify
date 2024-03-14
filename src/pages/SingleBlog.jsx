@@ -65,7 +65,9 @@ export default function SingleBlog() {
           {/* Tags */}
           <ul className="tags">
             {tags?.split(",").map((tag, index) => (
-              <li key={index}>{tag}</li>
+              <Link to={`/tags/${tag.trim()}`} key={index}>
+                {tag.trim()}
+              </Link>
             ))}
           </ul>
 

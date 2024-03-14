@@ -13,6 +13,8 @@ import PrivateRoutes from "./PrivateRoutes";
 import Root from "./Root";
 import editBlogLoader from "@loaders/editBlogLoader";
 import EditBlog from "@components/EditBlog";
+import Test from "@pages/Test";
+import Tags from "@pages/Tags";
 
 export const router = createBrowserRouter([
   {
@@ -60,10 +62,14 @@ export const router = createBrowserRouter([
             path: "user/:userId/profile",
             element: <Profile />,
           },
-          // {
-          //   path: "profile/:userId",
-          //   element: <Profile />,
-          // },
+          {
+            path: "/test",
+            element: <Test />,
+          },
+          {
+            path: "/tags/:tag",
+            element: <Tags />,
+          },
         ],
       },
     ],

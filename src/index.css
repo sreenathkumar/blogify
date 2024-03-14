@@ -86,7 +86,7 @@
       @apply flex gap-2 mx-auto my-6 justify-center;
     }
   
-    .tags li {
+    .tags a {
       @apply bg-slate-700 p-2 px-4 rounded-md text-sm cursor-pointer hover:bg-slate-800 hover:ring hover:ring-slate-500 transition-all;
     }
   

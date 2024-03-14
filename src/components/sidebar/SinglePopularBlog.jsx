@@ -12,7 +12,7 @@ export default function SingleSidebarBlog({
   return (
     <li>
       <Link
-        to={`blog/${blogId}`}
+        to={`/blog/${blogId}`}
         className="text-slate-400 hover:text-slate-300"
       >
         <h3 className="text-slate-400 font-medium hover:text-slate-300 transition-all cursor-pointer">
@@ -23,15 +23,19 @@ export default function SingleSidebarBlog({
         {type === "favourite" ? (
           <>
             {tags?.map((tag, index) => (
-              <span key={index} className="text-slate-600 text-sm">
-                {tag}
+              <Link
+                to={`/tags/${tag.trim()}`}
+                key={index}
+                className="text-slate-600 text-sm cursor-pointer"
+              >
+                {`#${tag.trim()}`}
                 {index < tags.length - 1 ? ", " : ""}
-              </span>
+              </Link>
             ))}
           </>
         ) : (
           <>
-            {"by"} <Link to={`user/${authorId}/profile`}>{author}</Link>
+            {"by"} <Link to={`/user/${authorId}/profile`}>{author}</Link>
             <span> · </span> {likes} Likes
           </>
         )}
