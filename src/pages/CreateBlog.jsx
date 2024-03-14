@@ -32,7 +32,6 @@ export default function CreateBlog() {
     blogImage,
     imageError,
   } = useBlogMutation({ type: "create" }, reset);
-  console.log(imageFieldRef, auth);
 
   //if the user is not the author of the blog
   if (loaderData?.author?.id !== auth?.user?.id && loaderData) {

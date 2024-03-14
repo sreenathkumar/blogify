@@ -15,6 +15,7 @@ export default function Home() {
     hasMore,
     deleteItem,
   } = useInfiniteScroll("/blogs", loaderRef, 3);
+
   return (
     <section>
       <div className="container">

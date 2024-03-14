@@ -1,7 +1,7 @@
 import { api } from "@api/api";
 import Field from "@components/Field";
 import { useAuth } from "@hooks/useAuth";
-import { notify, objectToFormData } from "@utils/general";
+import { notify } from "@utils/general";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -20,8 +20,7 @@ export default function Register() {
   //handle form submission
   const onSubmit = async (data) => {
     //send data to the server and authenticate the user
-    const formData = objectToFormData(data);
-    console.log(Object.fromEntries(formData.entries()));
+    //const formData = objectToFormData(data);
 
     try {
       //handle the form submission
