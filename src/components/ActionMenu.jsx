@@ -38,7 +38,6 @@ export default function ActionMenu({ id, onDelete }) {
         deleteBlog(id, deleteToast);
       }
     } catch (error) {
-      console.log(error);
       toast.update(deleteToast, {
         render: "An error occurred while deleting the blog. Please try again.",
         type: "error",
